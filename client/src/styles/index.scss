@@ -1,0 +1,12 @@
+.starwars-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+
+  .grid-layout {
+    display: grid;
+    flex: 1;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.5rem;
+  }
+}
