@@ -13,11 +13,9 @@ const AxiosInterceptor = ({ children }: { children: JSX.Element }) => {
 
   axios.interceptors.response.use(
     (response) => {
-      // Process the response data if needed
       return response;
     },
     (error) => {
-      // Handle response error
       return Promise.reject(error);
     }
   );

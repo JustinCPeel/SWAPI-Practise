@@ -1,9 +1,13 @@
 import axios from "axios";
 
-export const fetchCharacters = async (): Promise<CharactersMinimal[]> => {
+export const searchCharacter = async (
+  searchTerm: string
+): Promise<CharacterOption[]> => {
   try {
-    const response = await axios.get<CharactersMinimal[]>("characters");
-    return response.data;
+    const response = await axios.get<CharactersMinimal[]>("characters", {
+      params: { search: searchTerm },
+    });
+    return response.data.map((char) => ({ value: char.url, label: char.name }));
   } catch (error) {
     throw new Error(
       (error as any).response?.data?.message || "Error fetching characters"
@@ -13,11 +17,26 @@ export const fetchCharacters = async (): Promise<CharactersMinimal[]> => {
 
 export const fetchCharacterForUrl = async (
   url: string
-): Promise<CharactersMinimal[]> => {
+): Promise<SwapiCharResponse> => {
   try {
-    const response = await axios.get<SwapiCharResponse[]>(
-      "characters/selected",
-      { params: { url: url } }
+    const response = await axios.get<SwapiCharResponse>("characters/selected", {
+      params: { url: url },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      (error as any).response?.data?.message || "Error fetching character"
+    );
+  }
+};
+
+export const compareCharacterStats = async (
+  characters: ComparisonState
+): Promise<SwapiCharResponse> => {
+  try {
+    const response = await axios.post<SwapiCharResponse>(
+      "characters",
+      characters
     );
     return response.data;
   } catch (error) {

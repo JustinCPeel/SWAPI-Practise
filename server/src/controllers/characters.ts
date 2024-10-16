@@ -7,10 +7,11 @@ export class CharactersController {
   constructor() {
     this.characterService = new CharacterService();
   }
-
-  public async fetchListCharacters(req: Request, res: Response): Promise<void> {
+  public async searchForCharacter(req: Request, res: Response): Promise<void> {
     try {
-      const data = await this.characterService.fetchAllCharacters();
+      const term = req.query.search as string;
+
+      const data = await this.characterService.searchCharactersByTerm(term);
       res.status(200).json(data);
     } catch (error: any) {
       res
@@ -26,6 +27,21 @@ export class CharactersController {
       const data = await this.characterService.fetchCharacterForUrl({
         url: decodeURIComponent(url),
       });
+      res.status(200).json(data);
+    } catch (error: any) {
+      res
+        .status(500)
+        .json({ message: "Error fetching data", error: error.message });
+    }
+  }
+
+  public async compareCharacters(req: Request, res: Response): Promise<void> {
+    try {
+      const comparisonObject = req.body;
+
+      const data = await this.characterService.compareCharactersForUrls(
+        comparisonObject
+      );
       res.status(200).json(data);
     } catch (error: any) {
       res

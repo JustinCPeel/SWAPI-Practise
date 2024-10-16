@@ -6,3 +6,8 @@ export type CharacterComparisonRequest = {
 export type CharacterFetch = {
   url: string;
 };
+
+export type ComparisonRequest = {
+  primary: string;
+  secondary: string;
+};

@@ -1,12 +1,160 @@
+$jedi: #00ff00;
+$sith: #ff0000;
+$empire: #000000;
+$rebels: #ffcc00;
+$bountyHunters: #b0b0b0;
+$separatists: #a0522d;
+$droids: #ffd700;
+$tatooineCitizens: #e9b572;
+
 .starwars-container {
   display: flex;
   flex-direction: column;
   padding: 1.25rem;
+  row-gap: 2rem;
 
   .grid-layout {
     display: grid;
     flex: 1;
-    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "primary-search secondary-search"
+      "primary-character secondary-character";
     column-gap: 0.5rem;
+    row-gap: 2.5rem;
+    @media screen and (max-width: 600px) {
+      row-gap: 2rem;
+      grid-template-areas:
+        "primary-search"
+        "secondary-search"
+        "primary-character"
+        "secondary-character";
+    }
+
+    #primary-character-select,
+    #secondary-character-select,
+    #primary-character-card,
+    #secondary-character-card {
+      min-width: 250px;
+    }
+
+    #primary-character-select {
+      grid-area: primary-search;
+    }
+    #secondary-character-select {
+      grid-area: secondary-search;
+    }
+    #primary-character-card {
+      grid-area: primary-character;
+    }
+    #secondary-character-card {
+      grid-area: secondary-character;
+    }
+  }
+}
+
+.character-display-card {
+  display: flex;
+  flex-direction: row;
+  min-height: 350px;
+  .character-display {
+    min-width: 150px;
+    max-width: 300px;
+    position: relative;
+    width: 100%;
+    .character-model {
+      position: absolute;
+      right: 0;
+      min-height: 200px;
+      max-height: 350px;
+      transition: transform 0.3s ease-in-out;
+      &:hover {
+        transform: scale(1.25);
+        z-index: 9999;
+      }
+    }
+  }
+  .character-information {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    background-color: rgba(0, 0, 0, 0.735);
+    // background-image: url("/assets/images/card-background.webp");
+    flex: 1;
+    padding: 0.75rem;
+    position: relative;
+    h1 {
+      margin-top: 0;
+      color: white;
+    }
+
+    .character-attributes {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.25rem;
+      .attribute {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        column-gap: 0.5rem;
+        color: white;
+        svg {
+          fill: $bountyHunters;
+          path {
+            fill: $bountyHunters;
+            stroke: $bountyHunters;
+          }
+        }
+        p {
+          margin: 0px;
+          b {
+            color: $bountyHunters;
+          }
+        }
+      }
+    }
+
+    .faction {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      .title {
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 12px;
+        display: flex;
+        flex-direction: row;
+        column-gap: 5px;
+        width: fit-content;
+        align-items: center;
+        border-top-right-radius: 1rem;
+        &-jedi {
+          background-color: $jedi;
+        }
+        &-sith {
+          background-color: $sith;
+        }
+        &-empire {
+          background-color: $empire;
+        }
+        &-rebels {
+          background-color: $rebels;
+          color: #000000;
+        }
+        &-bountyHunters {
+          background-color: $bountyHunters;
+        }
+        &-separatists {
+          background-color: $separatists;
+        }
+        &-droids {
+          background-color: $droids;
+          color: #000000;
+        }
+        &-tatooineCitizens {
+          background-color: $tatooineCitizens;
+        }
+      }
+    }
   }
 }

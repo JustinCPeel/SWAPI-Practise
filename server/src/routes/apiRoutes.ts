@@ -14,7 +14,13 @@ export class ApiRoutes {
   private routes(): void {
     this.router.get(
       "/characters",
-      this.charactersController.fetchListCharacters.bind(
+      this.charactersController.searchForCharacter.bind(
+        this.charactersController
+      )
+    );
+    this.router.post(
+      "/characters",
+      this.charactersController.compareCharacters.bind(
         this.charactersController
       )
     );

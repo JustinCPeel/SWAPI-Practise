@@ -1,48 +1,48 @@
 import { FC, useEffect, useState } from "react";
-import { Loader } from "../components/loader";
-import useCharactersList from "../hooks/useCharactersList";
-import Select from "react-select";
+import AsyncSelectCharacter from "../components/ReactSelect/AsyncSelectCharacter";
 import { fetchCharacterForUrl } from "../services/api";
+import { CharacterProvider } from "../hooks/useCharacter";
+import CharacterDisplayCard from "../components/cards/CharacterDisplayCard";
+import { Comparisson } from "../components/comparison";
 
 const Home: FC = () => {
-  const { loading, characters } = useCharactersList();
-  const [selected, setSelected] = useState<string>("");
+  const [comparisonState, setComparisonState] = useState<ComparisonState>({
+    primary: "",
+    secondary: "",
+  });
 
-  const handleStateChange = async (url: string) => {
-    const encodedUrl = encodeURIComponent(url);
-    setSelected(encodedUrl);
+  const handleStateChange = (value: Partial<ComparisonState>) => {
+    setComparisonState((previous) => ({ ...previous, ...value }));
   };
-
-  useEffect(() => {
-    const fetchCharacterDetails = async () => {
-      const data = await fetchCharacterForUrl(selected);
-    };
-
-    if (selected !== "") fetchCharacterDetails();
-  }, [selected]);
 
   return (
     <div className="starwars-container">
-      {loading && <Loader />}
       <div className="grid-layout">
-        <div>
-          <Select
-            options={characters.map((character) => ({
-              label: character.name,
-              value: character.url,
-            }))}
-            onChange={(e) => handleStateChange(e?.value ?? "")}
-          />
-        </div>
-        <div>
-          <Select
-            options={characters.map((character) => ({
-              label: character.name,
-              value: character.url,
-            }))}
-          />
-        </div>
+        <CharacterProvider
+          setCoreState={(selectedClientUrl: string) =>
+            handleStateChange({ primary: selectedClientUrl })
+          }
+        >
+          <>
+            <AsyncSelectCharacter id="primary-character-select" />
+            <CharacterDisplayCard id="primary-character-card" />
+          </>
+        </CharacterProvider>
+        <CharacterProvider
+          setCoreState={(selectedClientUrl: string) =>
+            handleStateChange({ secondary: selectedClientUrl })
+          }
+        >
+          <>
+            <AsyncSelectCharacter id="secondary-character-select" />
+            <CharacterDisplayCard id="secondary-character-card" />
+          </>
+        </CharacterProvider>
       </div>
+      <Comparisson
+        primary={comparisonState.primary}
+        secondary={comparisonState.secondary}
+      />
     </div>
   );
 };
