@@ -17,15 +17,28 @@ export type SwapiCharResponse = {
   edited: string;
 };
 
+export type PreferenceComparison = {
+  primary: string;
+  secondary: string;
+  descritpion: string;
+};
+
 export type ComparisonResponse = {
+  name: {
+    primary: string;
+    seconday: string;
+  };
   birth_year: string;
-  eye_color: string;
-  gender: string;
-  hair_color: string;
+  eye_color: PreferenceComparison;
+  gender: PreferenceComparison;
+  hair_color: PreferenceComparison;
   height: string;
   mass: string;
-  skin_color: string;
-  homeworld: string;
+  skin_color: PreferenceComparison;
+  homeworld: {
+    primary: string;
+    seconday: string;
+  };
   films: string;
 };
 

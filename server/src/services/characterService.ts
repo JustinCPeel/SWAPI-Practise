@@ -4,6 +4,7 @@ import {
   CharactersMinimal,
   ComparisonResponse,
   PagedCharacterResponse,
+  PreferenceComparison,
   SwapiCharResponse,
 } from "../dto/responses/charactersResponses";
 import {
@@ -47,7 +48,7 @@ export class CharacterService {
       const totalPages = Math.ceil(maxCount / resultsPerPage);
 
       const apiCalls = [];
-      for (let i = 2; i <= totalPages; i++) {
+      for (let i = 2; i < totalPages; i++) {
         apiCalls.push(
           axios.get<PagedCharacterResponse>(this.apiUrl, {
             params: { search: searchTeam, page: i },
@@ -112,61 +113,236 @@ export class CharacterService {
     }
   }
 
+  /**
+   * This function serves as helper function to populate the difference of attibutes assigned to each character
+   *  @param {SwapiCharResponse[]} charsToCompare - List of 2 characters to compare attributes against.
+   * @throws Throws an error if there are not enough characters for comparison.
+   * @returns {Promise<SwapiCharResponse>} The full details of the character being searched
+   */
   private async compareAttributesForCharacters(
     charsToCompare: SwapiCharResponse[]
   ): Promise<ComparisonResponse> {
-    if (charsToCompare.length !== 2)
-      throw new Error("Expected exactly two characters for comparions");
-    const [firstCharacter, secondCharacter] = charsToCompare;
+    try {
+      if (charsToCompare.length !== 2)
+        throw new Error("Expected exactly two characters for comparions");
+      const [firstCharacter, secondCharacter] = charsToCompare;
 
-    const filmCounts = {
-      firstCharacter: firstCharacter.films.length + 1,
-      secondCharacter: secondCharacter.films.length + 1,
-    };
+      const filmCounts = {
+        firstCharacter: firstCharacter.films.length + 1,
+        secondCharacter: secondCharacter.films.length + 1,
+      };
 
-    const comparison: ComparisonResponse = {
-      birth_year: this.compareBirthYears(firstCharacter, secondCharacter),
-      mass: this.compareMass(firstCharacter, secondCharacter),
-      height: this.compareHeight(firstCharacter, secondCharacter),
-      gender: `${firstCharacter.name} is ${firstCharacter.gender}, ${secondCharacter.name} has ${secondCharacter.gender}`,
-      eye_color: `${firstCharacter.name} has ${firstCharacter.eye_color} eyes, ${secondCharacter.name} has ${secondCharacter.eye_color} eyes`,
-      hair_color: `${firstCharacter.name} has ${firstCharacter.hair_color} hair, ${secondCharacter.name} has ${secondCharacter.hair_color} hair`,
-      skin_color: `${firstCharacter.name} has ${firstCharacter.skin_color} skin, ${secondCharacter.name} has ${secondCharacter.skin_color} skin`,
-      homeworld: "",
-      films: `${firstCharacter.name} appeared in ${filmCounts.firstCharacter} films, ${secondCharacter.name} appeared in ${filmCounts.secondCharacter}`,
-    };
+      const comparison: ComparisonResponse = {
+        name: {
+          primary: firstCharacter.name,
+          seconday: secondCharacter.name,
+        },
+        birth_year: this.compareBirthYears(firstCharacter, secondCharacter),
+        mass: this.compareMass(firstCharacter, secondCharacter),
+        height: this.compareHeight(firstCharacter, secondCharacter),
+        gender: this.getPreferentialComparisonResponse(
+          firstCharacter,
+          secondCharacter,
+          "gender",
+          "gender"
+        ),
+        eye_color: this.getPreferentialComparisonResponse(
+          firstCharacter,
+          secondCharacter,
+          "eye_color",
+          "eye colour"
+        ),
+        hair_color: this.getPreferentialComparisonResponse(
+          firstCharacter,
+          secondCharacter,
+          "hair_color",
+          "hair colour"
+        ),
+        skin_color: this.getPreferentialComparisonResponse(
+          firstCharacter,
+          secondCharacter,
+          "skin_color",
+          "skin colour"
+        ),
+        homeworld: {
+          primary: await this.getCharacterHomeWorld(firstCharacter.homeworld),
+          seconday: await this.getCharacterHomeWorld(secondCharacter.homeworld),
+        },
+        films: `${firstCharacter.name} appeared in ${filmCounts.firstCharacter} films, ${secondCharacter.name} appeared in ${filmCounts.secondCharacter}`,
+      };
 
-    return comparison;
+      return comparison;
+    } catch (error) {
+      throw error;
+    }
   }
 
+  /**
+   * This function serves as helper function to return a suitable message for preferential comparisons,
+   * attributes that can not be compared mathematically or with a calculation, but can be compared using statistics.
+   *
+   * Even though the attributes can be compared, it is still a preferential comparison based on a persons preference.
+   *  @param {SwapiCharResponse} firstCharacter - First character for comparison.
+   *  @param {SwapiCharResponse} secondCharacter - Second character for comparison.
+   * @param {keyof SwapiCharResponse} key - The key of the attribute we are comparing against.
+   * @param {string} attribute - The string representation of the attribute for reading purposes.
+   * @throws Throws an error if the comparison objects values by key are not of 'String' type.
+   * @returns {PreferenceComparison} - An object containing the compared values with a default message.
+   */
+  private getPreferentialComparisonResponse(
+    firstCharacter: SwapiCharResponse,
+    secondCharacter: SwapiCharResponse,
+    key: keyof SwapiCharResponse,
+    attribute: string
+  ): PreferenceComparison {
+    const primaryValue = firstCharacter[key];
+    const secondaryValue = secondCharacter[key];
+    if (
+      typeof primaryValue !== "string" ||
+      typeof secondaryValue !== "string"
+    ) {
+      throw Error(`${key}: Value is not of proper format.`);
+    }
+
+    return {
+      primary: primaryValue,
+      secondary: secondaryValue,
+      descritpion: `We can not compare the ${attribute} of characters, as it is a personal preference.`,
+    };
+  }
+
+  /**
+   * Compares the height of two characters.
+   *
+   * @param {SwapiCharResponse}firstCharacter - An instace of our character to use for comparison
+   * @param {SwapiCharResponse}secondCharacter - A secondary instance of our character to compare against.
+   * @returns {string} - The result of which character is taller and the difference in heigh / default message if no height values to compare.
+   */
   private compareHeight(
     firstCharacter: SwapiCharResponse,
     secondCharacter: SwapiCharResponse
   ): string {
-    if (!firstCharacter.height) return "No height to compare";
-    if (!secondCharacter.height) return "No height to compare";
+    if (!firstCharacter.height || !secondCharacter.height) {
+      return "No height to compare";
+    }
 
     const firstHeight = parseFloat(firstCharacter.height);
     const secondHeight = parseFloat(secondCharacter.height);
 
     const difference = Math.abs(firstHeight - secondHeight);
 
-    return `The height difference between ${firstCharacter.name} (${firstHeight}) and ${secondCharacter.name} (${secondHeight}) is ${difference}`;
+    const tallerCharacterMessage =
+      firstHeight === secondHeight
+        ? `${firstCharacter.name} and ${secondCharacter.name} are of equal height`
+        : firstHeight > secondHeight
+        ? `${firstCharacter.name} is taller than ${secondCharacter.name}`
+        : `${secondCharacter.name} is taller than ${firstCharacter.name}`;
+
+    return `${tallerCharacterMessage}. The height difference is ${difference} units.`;
   }
 
+  /**
+   * Compares the mass of two characters.
+   *
+   * @param {SwapiCharResponse}firstCharacter - An instace of our character to use for comparison
+   * @param {SwapiCharResponse}secondCharacter - A secondary instance of our character to compare against.
+   * @returns {string} - The result of which character has a grater mass and the difference in mass / default message if no mass values to compare.
+   */
   private compareMass(
     firstCharacter: SwapiCharResponse,
     secondCharacter: SwapiCharResponse
   ): string {
-    if (!firstCharacter.mass) return "No mass to compare";
-    if (!secondCharacter.mass) return "No mass to compare";
+    if (!firstCharacter.mass || !secondCharacter.mass) {
+      return "No mass to compare";
+    }
 
     const firstMass = parseInt(firstCharacter.mass, 10);
     const secondMass = parseInt(secondCharacter.mass, 10);
 
     const difference = Math.abs(firstMass - secondMass);
 
-    return `The weight difference between ${firstCharacter.name} (${firstMass}) and ${secondCharacter.name} (${secondMass}) is ${difference}`;
+    const massCharacterMessage =
+      firstMass === secondMass
+        ? `${firstCharacter.name} and ${secondCharacter.name} are of equal mass`
+        : firstMass > secondMass
+        ? `${firstCharacter.name} has a greater mass than ${secondCharacter.name}`
+        : `${secondCharacter.name} has a greater mass than ${firstCharacter.name}`;
+
+    return `${massCharacterMessage}. The mass difference is ${difference} units.`;
+  }
+
+  /**
+   * Compares the birth years of two characters.
+   * Since 'Star Wars' characters have a birth year either in the 'BBY' or 'ABY' era.
+   * This functions main focus is to determine which character is older based on the era with 'BBY' being older than 'ABY'
+   * It then finds the actual difference in age as a numeric value.
+   *
+   * @param {SwapiCharResponse}firstCharacter - An instace of our character to use for comparison
+   * @param {SwapiCharResponse}secondCharacter - A secondary instance of our character to compare against.
+   * @throws {string} - For this particular function when an error occurs it returns a defaulted string value.
+   * @returns {string} - The result comparison between birth years.
+   */
+  private compareBirthYears(
+    firstCharacter: SwapiCharResponse,
+    secondCharacter: SwapiCharResponse
+  ): string {
+    try {
+      const firstBirthYear = firstCharacter.birth_year;
+      const firstName = firstCharacter.name;
+
+      const secondBirthYear = secondCharacter.birth_year;
+      const secondName = secondCharacter.name;
+
+      const parsedFirstCharacterBirthYear = parseInt(
+        firstBirthYear.replace(/BBY|ABY/, ""),
+        10
+      );
+      const parsedSecondCharacterBirthYear = parseInt(
+        secondBirthYear.replace(/BBY|ABY/, ""),
+        10
+      );
+
+      const isFirstBBY = firstBirthYear.includes("BBY");
+      const isSecondBBY = secondBirthYear.includes("BBY");
+
+      if (!isFirstBBY && !isSecondBBY) {
+        let ageDifference: number = Math.abs(
+          parsedFirstCharacterBirthYear - parsedSecondCharacterBirthYear
+        );
+        if (parsedSecondCharacterBirthYear > parsedFirstCharacterBirthYear)
+          ageDifference = Math.abs(
+            parsedSecondCharacterBirthYear - parsedFirstCharacterBirthYear
+          );
+        return `The age difference is between ${firstName} (born in ${firstBirthYear}) and ${secondName} (born in ${secondBirthYear}) is ${ageDifference}.`;
+      }
+
+      if (isFirstBBY && isSecondBBY) {
+        let ageDifference: number = Math.abs(
+          parsedFirstCharacterBirthYear - parsedSecondCharacterBirthYear
+        );
+        if (parsedSecondCharacterBirthYear > parsedFirstCharacterBirthYear)
+          ageDifference = Math.abs(
+            parsedSecondCharacterBirthYear - parsedFirstCharacterBirthYear
+          );
+        return `The age difference is between ${firstName} (born in ${firstBirthYear}) and ${secondName} (born in ${secondBirthYear}) is ${ageDifference}.`;
+      }
+
+      if (isFirstBBY && !isSecondBBY) {
+        const ageDifference =
+          parsedFirstCharacterBirthYear + parsedSecondCharacterBirthYear;
+        return `${firstName} (born in ${firstBirthYear}) is older than ${secondName} (born in ${secondBirthYear}) by ${ageDifference} years. `;
+      }
+
+      if (!isFirstBBY && isSecondBBY) {
+        const ageDifference =
+          parsedFirstCharacterBirthYear + parsedSecondCharacterBirthYear;
+        return `${firstName} (born in ${firstBirthYear}) is older than ${secondName} (born in ${secondBirthYear}) by ${ageDifference} years. `;
+      }
+
+      return "Are the Birth Years correct?";
+    } catch (error) {
+      return "Are the Birth Years correct?";
+    }
   }
 
   /**
@@ -184,64 +360,5 @@ export class CharacterService {
     } catch (error) {
       throw error;
     }
-  }
-
-  private compareBirthYears(
-    firstCharacter: SwapiCharResponse,
-    secondCharacter: SwapiCharResponse
-  ): string {
-    const firstBirthYear = firstCharacter.birth_year;
-    const firstName = firstCharacter.name;
-
-    const secondBirthYear = secondCharacter.birth_year;
-    const secondName = secondCharacter.name;
-
-    const parsedFirstCharacterBirthYear = parseInt(
-      firstBirthYear.replace(/BBY|ABY/, ""),
-      10
-    );
-    const parsedSecondCharacterBirthYear = parseInt(
-      secondBirthYear.replace(/BBY|ABY/, ""),
-      10
-    );
-
-    const isFirstBBY = firstBirthYear.includes("BBY");
-    const isSecondBBY = secondBirthYear.includes("BBY");
-
-    if (!isFirstBBY && !isSecondBBY) {
-      let ageDifference: number = Math.abs(
-        parsedFirstCharacterBirthYear - parsedSecondCharacterBirthYear
-      );
-      if (parsedSecondCharacterBirthYear > parsedFirstCharacterBirthYear)
-        ageDifference = Math.abs(
-          parsedSecondCharacterBirthYear - parsedFirstCharacterBirthYear
-        );
-      return `The age difference is between ${firstName} (born in ${firstBirthYear}) and ${secondName} (born in ${secondBirthYear}) is ${ageDifference}.`;
-    }
-
-    if (isFirstBBY && isSecondBBY) {
-      let ageDifference: number = Math.abs(
-        parsedFirstCharacterBirthYear - parsedSecondCharacterBirthYear
-      );
-      if (parsedSecondCharacterBirthYear > parsedFirstCharacterBirthYear)
-        ageDifference = Math.abs(
-          parsedSecondCharacterBirthYear - parsedFirstCharacterBirthYear
-        );
-      return `The age difference is between ${firstName} (born in ${firstBirthYear}) and ${secondName} (born in ${secondBirthYear}) is ${ageDifference}.`;
-    }
-
-    if (isFirstBBY && !isSecondBBY) {
-      const ageDifference =
-        parsedFirstCharacterBirthYear + parsedSecondCharacterBirthYear;
-      return `${firstName} (born in ${firstBirthYear}) is older than ${secondName} (born in ${secondBirthYear}) by ${ageDifference} years. `;
-    }
-
-    if (!isFirstBBY && isSecondBBY) {
-      const ageDifference =
-        parsedFirstCharacterBirthYear + parsedSecondCharacterBirthYear;
-      return `${firstName} (born in ${firstBirthYear}) is older than ${secondName} (born in ${secondBirthYear}) by ${ageDifference} years. `;
-    }
-
-    return "Are the Birth Years correct?";
   }
 }

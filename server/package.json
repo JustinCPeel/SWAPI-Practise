@@ -21,6 +21,8 @@
     "supertest": "^7.0.0"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.25.7",
+    "@jest/globals": "^29.7.0",
     "@types/axios": "^0.9.36",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
