@@ -1,0 +1,58 @@
+.starwars-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  row-gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  .starwars-logo {
+    max-width: 500px;
+    min-width: 260px;
+    width: 100%;
+  }
+  .grid-layout {
+    display: grid;
+    flex: 1;
+    grid-template-areas:
+      "primary-search secondary-search"
+      "primary-character secondary-character";
+    column-gap: 0.5rem;
+    row-gap: 2.5rem;
+    width: 100%;
+    @media screen and (max-width: 600px) {
+      row-gap: 2rem;
+      grid-template-areas:
+        "primary-search"
+        "secondary-search"
+        "primary-character"
+        "secondary-character";
+    }
+
+    @media screen and (max-width: 700) {
+      grid-template-columns: minmax(250, 400) minmax(250, 400);
+      column-gap: 1rem;
+    }
+
+    #primary-character-select,
+    #secondary-character-select,
+    #primary-character-card,
+    #secondary-character-card {
+      min-width: 250px;
+    }
+
+    #primary-character-select {
+      grid-area: primary-search;
+    }
+    #secondary-character-select {
+      grid-area: secondary-search;
+    }
+    #primary-character-card {
+      grid-area: primary-character;
+      justify-self: center;
+    }
+    #secondary-character-card {
+      grid-area: secondary-character;
+      justify-self: center;
+    }
+  }
+}

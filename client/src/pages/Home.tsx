@@ -1,50 +1,22 @@
-import { FC, useEffect, useState } from "react";
-import AsyncSelectCharacter from "../components/ReactSelect/AsyncSelectCharacter";
-import { fetchCharacterForUrl } from "../services/api";
-import { CharacterProvider } from "../hooks/useCharacter";
-import CharacterDisplayCard from "../components/cards/CharacterDisplayCard";
-import { Comparisson } from "../components/comparison";
+import { FC, useState } from "react";
+import { CharacterSelection } from "./components/CharacterSelection";
+import { Logo } from "./components/Logo";
 
-const Home: FC = () => {
-  const [comparisonState, setComparisonState] = useState<ComparisonState>({
-    primary: "",
-    secondary: "",
-  });
+export const Home: FC = () => {
+  const [logoVisible, setLogoVisible] = useState<boolean>(true);
+  const [gridVisible, setGridVisible] = useState<boolean>(false);
 
-  const handleStateChange = (value: Partial<ComparisonState>) => {
-    setComparisonState((previous) => ({ ...previous, ...value }));
+  const handleAnimationComplete = () => {
+    setLogoVisible(false);
+    setGridVisible(true);
   };
 
   return (
     <div className="starwars-container">
-      <div className="grid-layout">
-        <CharacterProvider
-          setCoreState={(selectedClientUrl: string) =>
-            handleStateChange({ primary: selectedClientUrl })
-          }
-        >
-          <>
-            <AsyncSelectCharacter id="primary-character-select" />
-            <CharacterDisplayCard id="primary-character-card" />
-          </>
-        </CharacterProvider>
-        <CharacterProvider
-          setCoreState={(selectedClientUrl: string) =>
-            handleStateChange({ secondary: selectedClientUrl })
-          }
-        >
-          <>
-            <AsyncSelectCharacter id="secondary-character-select" />
-            <CharacterDisplayCard id="secondary-character-card" />
-          </>
-        </CharacterProvider>
-      </div>
-      <Comparisson
-        primary={comparisonState.primary}
-        secondary={comparisonState.secondary}
-      />
+      {logoVisible && (
+        <Logo handleAnimationComplete={handleAnimationComplete} />
+      )}
+      {gridVisible && <CharacterSelection />}
     </div>
   );
 };
-
-export default Home;

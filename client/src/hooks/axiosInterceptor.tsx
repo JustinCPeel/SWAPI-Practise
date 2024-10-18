@@ -24,4 +24,3 @@ const AxiosInterceptor = ({ children }: { children: JSX.Element }) => {
 };
 
 export { AxiosInterceptor };
-

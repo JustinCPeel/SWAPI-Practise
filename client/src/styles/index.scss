@@ -1,57 +1,7 @@
-$jedi: #00ff00;
-$sith: #ff0000;
-$empire: #000000;
-$rebels: #ffcc00;
-$bountyHunters: #b0b0b0;
-$separatists: #a0522d;
-$droids: #ffd700;
-$tatooineCitizens: #e9b572;
-
-.starwars-container {
-  display: flex;
-  flex-direction: column;
-  padding: 1.25rem;
-  row-gap: 2rem;
-
-  .grid-layout {
-    display: grid;
-    flex: 1;
-    grid-template-areas:
-      "primary-search secondary-search"
-      "primary-character secondary-character";
-    column-gap: 0.5rem;
-    row-gap: 2.5rem;
-    @media screen and (max-width: 600px) {
-      row-gap: 2rem;
-      grid-template-areas:
-        "primary-search"
-        "secondary-search"
-        "primary-character"
-        "secondary-character";
-    }
-
-    #primary-character-select,
-    #secondary-character-select,
-    #primary-character-card,
-    #secondary-character-card {
-      min-width: 250px;
-    }
-
-    #primary-character-select {
-      grid-area: primary-search;
-    }
-    #secondary-character-select {
-      grid-area: secondary-search;
-    }
-    #primary-character-card {
-      grid-area: primary-character;
-    }
-    #secondary-character-card {
-      grid-area: secondary-character;
-    }
-  }
-}
-
+@import "./layout";
+@import "./variables";
+@import "./characterCard";
+@import "./button";
 .character-display-card {
   display: flex;
   flex-direction: row;
@@ -157,4 +107,11 @@ $tatooineCitizens: #e9b572;
       }
     }
   }
+}
+.comparison-button {
+  background-color: $sith;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 1rem;
 }

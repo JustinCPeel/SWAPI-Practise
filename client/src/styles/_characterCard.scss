@@ -1,0 +1,554 @@
+// Define your character backgrounds
+$character-backgrounds: (
+  "Luke Skywalker": "../../public/assets/images/characters/Luke Skywalker.webp",
+  "C-3PO": "../../public/assets/images/characters/C-3PO.webp",
+  "R2-D2": "../../public/assets/images/characters/R2-D2.webp",
+  "Darth Vader": "../../public/assets/images/characters/Darth Vader.webp",
+  "Leia Organa": "../../public/assets/images/characters/Leia Organa.webp",
+  "Owen Lars": "../../public/assets/images/characters/Owen Lars.webp",
+  "Beru Whitesun Lars":
+    "../../public/assets/images/characters/Beru Whitesun Lars.webp",
+  "R5-D4": "../../public/assets/images/characters/R5-D4.webp",
+  "Biggs Darklighter":
+    "../../public/assets/images/characters/Biggs Darklighter.webp",
+  "Obi-Wan Kenobi": "../../public/assets/images/characters/Obi-Wan Kenobi.webp",
+  "Anakin Skywalker":
+    "../../public/assets/images/characters/Anakin Skywalker.webp",
+  "Wilhuff Tarkin": "../../public/assets/images/characters/Wilhuff Tarkin.webp",
+  "Chewbacca": "../../public/assets/images/characters/Chewbacca.webp",
+  "Han Solo": "../../public/assets/images/characters/Han Solo.webp",
+  "Greedo": "../../public/assets/images/characters/Greedo.webp",
+  "Jabba Desilijic Tiure":
+    "../../public/assets/images/characters/Jabba Desilijic Tiure.webp",
+  "Wedge Antilles": "../../public/assets/images/characters/Wedge Antilles.webp",
+  "Jek Tono Porkins":
+    "../../public/assets/images/characters/Jek Tono Porkins.webp",
+  "Yoda": "../../public/assets/images/characters/Yoda.webp",
+  "Palpatine": "../../public/assets/images/characters/Palpatine.webp",
+  "Boba Fett": "../../public/assets/images/characters/Boba Fett.webp",
+  "IG-88": "../../public/assets/images/characters/IG-88.webp",
+  "Bossk": "../../public/assets/images/characters/Bossk.webp",
+  "Lando Calrissian":
+    "../../public/assets/images/characters/Lando Calrissian.webp",
+  "Lobot": "../../public/assets/images/characters/Lobot.webp",
+  "Ackbar": "../../public/assets/images/characters/Ackbar.webp",
+  "Mon Mothma": "../../public/assets/images/characters/Mon Mothma.webp",
+  "Arvel Crynyd": "../../public/assets/images/characters/Arvel Crynyd.webp",
+  "Wicket Systri Warrick":
+    "../../public/assets/images/characters/Wicket Systri Warrick.webp",
+  "Nien Nunb": "../../public/assets/images/characters/Nien Nunb.webp",
+  "Qui-Gon Jinn": "../../public/assets/images/characters/Qui-Gon Jinn.webp",
+  "Nute Gunray": "../../public/assets/images/characters/Nute Gunray.webp",
+  "Finis Valorum": "../../public/assets/images/characters/Finis Valorum.webp",
+  "Padmé Amidala": "../../public/assets/images/characters/Padmé Amidala.webp",
+  "Jar Jar Binks": "../../public/assets/images/characters/Jar Jar Binks.webp",
+  "Roos Tarpals": "../../public/assets/images/characters/Roos Tarpals.webp",
+  "Rugor Nass": "../../public/assets/images/characters/Rugor Nass.webp",
+  "Ric Olié": "../../public/assets/images/characters/Ric Olié.webp",
+  "Watto": "../../public/assets/images/characters/Watto.webp",
+  "Sebulba": "../../public/assets/images/characters/Sebulba.webp",
+  "Quarsh Panaka": "../../public/assets/images/characters/Quarsh Panaka.webp",
+  "Shmi Skywalker": "../../public/assets/images/characters/Shmi Skywalker.webp",
+  "Darth Maul": "../../public/assets/images/characters/Darth Maul.webp",
+  "Bib Fortuna": "../../public/assets/images/characters/Bib Fortuna.webp",
+  "Ayla Secura": "../../public/assets/images/characters/Ayla Secura.webp",
+  "Ratts Tyerel": "../../public/assets/images/characters/Ratts Tyerel.webp",
+  "Dud Bolt": "../../public/assets/images/characters/Dud Bolt.webp",
+  "Gasgano": "../../public/assets/images/characters/Gasgano.webp",
+  "Ben Quadinaros": "../../public/assets/images/characters/Ben Quadinaros.webp",
+  "Mace Windu": "../../public/assets/images/characters/Mace Windu.webp",
+  "Ki-Adi-Mundi": "../../public/assets/images/characters/Ki-Adi-Mundi.webp",
+  "Kit Fisto": "../../public/assets/images/characters/Kit Fisto.webp",
+  "Eeth Koth": "../../public/assets/images/characters/Eeth Koth.webp",
+  "Adi Gallia": "../../public/assets/images/characters/Adi Gallia.webp",
+  "Saesee Tiin": "../../public/assets/images/characters/Saesee Tiin.webp",
+  "Yarael Poof": "../../public/assets/images/characters/Yarael Poof.webp",
+  "Plo Koon": "../../public/assets/images/characters/Plo Koon.webp",
+  "Mas Amedda": "../../public/assets/images/characters/Mas Amedda.webp",
+  "Gregar Typho": "../../public/assets/images/characters/Gregar Typho.webp",
+  "Cordé": "../../public/assets/images/characters/Cordé.webp",
+  "Cliegg Lars": "../../public/assets/images/characters/Cliegg Lars.webp",
+  "Poggle the Lesser":
+    "../../public/assets/images/characters/Poggle the Lesser.webp",
+  "Luminara Unduli":
+    "../../public/assets/images/characters/Luminara Unduli.webp",
+  "Barriss Offee": "../../public/assets/images/characters/Barriss Offee.webp",
+  "Dormé": "../../public/assets/images/characters/Dormé.webp",
+  "Dooku": "../../public/assets/images/characters/Dooku.webp",
+  "Bail Prestor Organa":
+    "../../public/assets/images/characters/Bail Prestor Organa.webp",
+  "Jango Fett": "../../public/assets/images/characters/Jango Fett.webp",
+  "Zam Wesell": "../../public/assets/images/characters/Zam Wesell.webp",
+  "Dexter Jettster":
+    "../../public/assets/images/characters/Dexter Jettster.webp",
+  "Lama Su": "../../public/assets/images/characters/Lama Su.webp",
+  "Taun We": "../../public/assets/images/characters/Taun We.webp",
+  "Jocasta Nu": "../../public/assets/images/characters/Jocasta Nu.webp",
+  "R4-P17": "../../public/assets/images/characters/R4-P17.webp",
+  "Wat Tambor": "../../public/assets/images/characters/Wat Tambor.webp",
+  "San Hill": "../../public/assets/images/characters/San Hill.webp",
+  "Shaak Ti": "../../public/assets/images/characters/Shaak Ti.webp",
+  "Grievous": "../../public/assets/images/characters/Grievous.webp",
+  "Tarfful": "../../public/assets/images/characters/Tarfful.webp",
+  "Raymus Antilles":
+    "../../public/assets/images/characters/Raymus Antilles.webp",
+);
+
+@mixin character-background($name) {
+  $bg-url: map-get($character-backgrounds, $name);
+  background: grey url($bg-url) center center no-repeat;
+  background-size: cover; // default size
+}
+
+.card {
+  height: 600px;
+  min-width: 200px;
+  width: 100%;
+  max-width: 400px;
+  background: grey;
+  border-radius: 10px;
+  transition: background 0.8s, height 0.8s ease, width 1.8s ease; // Add transition for height and width
+  overflow: hidden;
+  box-shadow: 0 70px 63px -60px #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  filter: blur(8px);
+
+  &.loaded {
+    filter: blur(0px);
+
+    h2 {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  }
+
+  .character-information {
+    display: flex;
+    opacity: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.65);
+    color: white;
+    transition: opacity 1s;
+  }
+  &:hover {
+    .border {
+      opacity: 0;
+    }
+    .character-information {
+      opacity: 1;
+    }
+  }
+
+  .border {
+    height: 590px;
+    min-width: 200px;
+    width: 100%;
+    max-width: 390px;
+    background: transparent;
+    border-radius: 10px;
+    transition: border 1s, height 0.8s ease, width 1.8s ease;
+    position: relative;
+    transition: opacity 1s;
+    &.loaded {
+      border: 2px solid white;
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    .title {
+      padding: 0px 10px;
+      display: flex;
+      flex-direction: column;
+      .quote {
+        margin: 0;
+        font-size: 12px;
+        color: rgb(179, 179, 179);
+      }
+    }
+  }
+
+  h2 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: white;
+    margin: 10px 0px 0px 0px;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+
+  .icons {
+    position: absolute;
+    fill: #fff;
+    color: #fff;
+    padding: 10px;
+    top: 460px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    column-gap: 10px;
+    .icon-column {
+      display: flex;
+      flex-direction: column;
+      row-gap: 2px;
+      justify-content: space-around;
+    }
+    .attribute {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      column-gap: 5px;
+
+      p {
+        font-size: 12px;
+        margin: 0;
+        color: rgb(179, 179, 179);
+        b {
+          color: #fff;
+        }
+      }
+    }
+    @media screen and (max-width: 420px) {
+      top: 440px;
+    }
+  }
+
+  &.Luke-Skywalker {
+    @include character-background("Luke Skywalker");
+  }
+
+  &.C-3PO {
+    @include character-background("C-3PO");
+  }
+
+  &.R2-D2 {
+    @include character-background("R2-D2");
+  }
+
+  &.Darth-Vader {
+    @include character-background("Darth Vader");
+  }
+
+  &.Leia-Organa {
+    @include character-background("Leia Organa");
+  }
+
+  &.Owen-Lars {
+    @include character-background("Owen Lars");
+  }
+
+  &.Beru-Whitesun-Lars {
+    @include character-background("Beru Whitesun Lars");
+  }
+
+  &.R5-D4 {
+    @include character-background("R5-D4");
+  }
+
+  &.Biggs-Darklighter {
+    @include character-background("Biggs Darklighter");
+  }
+
+  &.Obi-Wan-Kenobi {
+    @include character-background("Obi-Wan Kenobi");
+  }
+
+  &.Anakin-Skywalker {
+    @include character-background("Anakin Skywalker");
+  }
+
+  &.Wilhuff-Tarkin {
+    @include character-background("Wilhuff Tarkin");
+  }
+
+  &.Chewbacca {
+    @include character-background("Chewbacca");
+  }
+
+  &.Han-Solo {
+    @include character-background("Han Solo");
+  }
+
+  &.Greedo {
+    @include character-background("Greedo");
+  }
+
+  &.Jabba-Desilijic-Tiure {
+    @include character-background("Jabba Desilijic Tiure");
+  }
+
+  &.Wedge-Antilles {
+    @include character-background("Wedge Antilles");
+  }
+
+  &.Jek-Tono-Porkins {
+    @include character-background("Jek Tono Porkins");
+  }
+
+  &.Yoda {
+    @include character-background("Yoda");
+  }
+
+  &.Palpatine {
+    @include character-background("Palpatine");
+  }
+
+  &.Boba-Fett {
+    @include character-background("Boba Fett");
+  }
+
+  &.IG-88 {
+    @include character-background("IG-88");
+  }
+
+  &.Bossk {
+    @include character-background("Bossk");
+  }
+
+  &.Lando-Calrissian {
+    @include character-background("Lando Calrissian");
+  }
+
+  &.Lobot {
+    @include character-background("Lobot");
+  }
+
+  &.Ackbar {
+    @include character-background("Ackbar");
+  }
+
+  &.Mon-Mothma {
+    @include character-background("Mon Mothma");
+  }
+
+  &.Arvel-Crynyd {
+    @include character-background("Arvel Crynyd");
+  }
+
+  &.Wicket-Systri-Warrick {
+    @include character-background("Wicket Systri Warrick");
+  }
+
+  &.Nien-Nunb {
+    @include character-background("Nien Nunb");
+  }
+
+  &.Qui-Gon-Jinn {
+    @include character-background("Qui-Gon Jinn");
+  }
+
+  &.Nute-Gunray {
+    @include character-background("Nute Gunray");
+  }
+
+  &.Finis-Valorum {
+    @include character-background("Finis Valorum");
+  }
+
+  &.Padmé-Amidala {
+    @include character-background("Padmé Amidala");
+  }
+
+  &.Jar-Jar-Binks {
+    @include character-background("Jar Jar Binks");
+  }
+
+  &.Roos-Tarpals {
+    @include character-background("Roos Tarpals");
+  }
+
+  &.Rugor-Nass {
+    @include character-background("Rugor Nass");
+  }
+
+  &.Ric-Olié {
+    @include character-background("Ric Olié");
+  }
+
+  &.Watto {
+    @include character-background("Watto");
+  }
+
+  &.Sebulba {
+    @include character-background("Sebulba");
+  }
+
+  &.Quarsh-Panaka {
+    @include character-background("Quarsh Panaka");
+  }
+
+  &.Shmi-Skywalker {
+    @include character-background("Shmi Skywalker");
+  }
+
+  &.Darth-Maul {
+    @include character-background("Darth Maul");
+  }
+
+  &.Bib-Fortuna {
+    @include character-background("Bib Fortuna");
+  }
+
+  &.Ayla-Secura {
+    @include character-background("Ayla Secura");
+  }
+
+  &.Ratts-Tyerel {
+    @include character-background("Ratts Tyerel");
+  }
+
+  &.Dud-Bolt {
+    @include character-background("Dud Bolt");
+  }
+
+  &.Gasgano {
+    @include character-background("Gasgano");
+  }
+
+  &.Ben-Quadinaros {
+    @include character-background("Ben Quadinaros");
+  }
+
+  &.Mace-Windu {
+    @include character-background("Mace Windu");
+  }
+
+  &.Ki-Adi-Mundi {
+    @include character-background("Ki-Adi-Mundi");
+  }
+
+  &.Kit-Fisto {
+    @include character-background("Kit Fisto");
+  }
+
+  &.Eeth-Koth {
+    @include character-background("Eeth Koth");
+  }
+
+  &.Adi-Gallia {
+    @include character-background("Adi Gallia");
+  }
+
+  &.Saesee-Tiin {
+    @include character-background("Saesee Tiin");
+  }
+
+  &.Yarael-Poof {
+    @include character-background("Yarael Poof");
+  }
+
+  &.Plo-Koon {
+    @include character-background("Plo Koon");
+  }
+
+  &.Mas-Amedda {
+    @include character-background("Mas Amedda");
+  }
+
+  &.Gregar-Typho {
+    @include character-background("Gregar Typho");
+  }
+
+  &.Cordé {
+    @include character-background("Cordé");
+  }
+
+  &.Cliegg-Lars {
+    @include character-background("Cliegg Lars");
+  }
+
+  &.Poggle-the-Lesser {
+    @include character-background("Poggle the Lesser");
+  }
+
+  &.Luminara-Unduli {
+    @include character-background("Luminara Unduli");
+  }
+
+  &.Barriss-Offee {
+    @include character-background("Barriss Offee");
+  }
+
+  &.Dormé {
+    @include character-background("Dormé");
+  }
+
+  &.Dooku {
+    @include character-background("Dooku");
+  }
+
+  &.Bail-Prestor-Organa {
+    @include character-background("Bail Prestor Organa");
+  }
+
+  &.Jango-Fett {
+    @include character-background("Jango Fett");
+  }
+
+  &.Zam-Wesell {
+    @include character-background("Zam Wesell");
+  }
+
+  &.Dexter-Jettster {
+    @include character-background("Dexter Jettster");
+  }
+
+  &.Lama-Su {
+    @include character-background("Lama Su");
+  }
+
+  &.Taun-We {
+    @include character-background("Taun We");
+  }
+
+  &.Jocasta-Nu {
+    @include character-background("Jocasta Nu");
+  }
+
+  &.R4-P17 {
+    @include character-background("R4-P17");
+  }
+
+  &.Wat-Tambor {
+    @include character-background("Wat Tambor");
+  }
+
+  &.San-Hill {
+    @include character-background("San Hill");
+  }
+
+  &.Shaak-Ti {
+    @include character-background("Shaak Ti");
+  }
+
+  &.Grievous {
+    @include character-background("Grievous");
+  }
+
+  &.Tarfful {
+    @include character-background("Tarfful");
+  }
+
+  &.Raymus-Antilles {
+    @include character-background("Raymus Antilles");
+  }
+}
+
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}

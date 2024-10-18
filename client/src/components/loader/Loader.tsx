@@ -31,9 +31,9 @@ export const Loader: FC<LoaderProps> = ({ loading }) => {
       animate={loading ? "visible" : "hidden"}
       variants={loaderVariants}
       style={{
-        width: "50px", 
+        width: "50px",
         height: "50px",
-         display: "flex",
+        display: "flex",
         alignItems: "center",
         justifyContent: "center",
       }}

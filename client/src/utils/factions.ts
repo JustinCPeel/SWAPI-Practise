@@ -96,3 +96,21 @@ export const FACTIONS = {
     characters: ["Owen Lars", "Beru Whitesun Lars", "Shmi Skywalker"],
   },
 };
+
+
+export const formatFactionName = (name: string) => {
+  const camelCaseName = name
+    .replace(/([A-Z])/g, " $1")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase()
+    .split(" ")
+    .map((word, index) => {
+      return index < 2
+        ? word.charAt(0).toUpperCase() + word.slice(1)
+        : word.toLowerCase();
+    })
+    .join(" ");
+
+  return camelCaseName;
+};

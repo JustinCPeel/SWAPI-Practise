@@ -26,12 +26,65 @@ describe("CharactersController", () => {
     };
   });
 
-  describe("fetchListCharacters", () => {
-    it("should return 200 and data when fetchAllCharacters is successful", async () => {
+  describe("searchForCharacter", () => {
+    it("Should return a response of status 200 with data attached to the response", async () => {
       const mockData = [
-        { name: "Character 1", url: "" },
-        { name: "Character 2", url: "" },
+        {
+          name: "Luke Skywalker",
+          height: "172",
+          mass: "77",
+          hair_color: "blond",
+          skin_color: "fair",
+          eye_color: "blue",
+          birth_year: "19BBY",
+          gender: "Male",
+          homeworld: "https://swapi.dev/api/planets/1/",
+          films: [
+            "https://swapi.dev/api/films/1/",
+            "https://swapi.dev/api/films/2/",
+            "https://swapi.dev/api/films/3/",
+            "https://swapi.dev/api/films/6/",
+          ],
+          species: [],
+          vehicles: [
+            "https://swapi.dev/api/vehicles/14/",
+            "https://swapi.dev/api/vehicles/30/",
+          ],
+          starships: [
+            "https://swapi.dev/api/starships/12/",
+            "https://swapi.dev/api/starships/22/",
+          ],
+          created: "2014-12-09T13:50:51.644000Z",
+          edited: "2014-12-20T21:17:56.891000Z",
+          url: "https://swapi.dev/api/people/1/",
+        },
+        {
+          name: "C-3PO",
+          height: "167",
+          mass: "75",
+          hair_color: "n/a",
+          skin_color: "gold",
+          eye_color: "yellow",
+          birth_year: "112BBY",
+          gender: "n/a",
+          homeworld: "https://swapi.dev/api/planets/1/",
+          films: [
+            "https://swapi.dev/api/films/1/",
+            "https://swapi.dev/api/films/2/",
+            "https://swapi.dev/api/films/3/",
+            "https://swapi.dev/api/films/4/",
+            "https://swapi.dev/api/films/5/",
+            "https://swapi.dev/api/films/6/",
+          ],
+          species: ["https://swapi.dev/api/species/2/"],
+          vehicles: [],
+          starships: [],
+          created: "2014-12-10T15:10:51.357000Z",
+          edited: "2014-12-20T21:17:50.309000Z",
+          url: "https://swapi.dev/api/people/2/",
+        },
       ];
+
       mockCharacterService.searchCharactersByTerm.mockResolvedValue(mockData);
 
       await charactersController.searchForCharacter(
@@ -46,7 +99,7 @@ describe("CharactersController", () => {
       expect(res.json).toHaveBeenCalledWith(mockData);
     });
 
-    it("should return 500 and an error message when fetchAllCharacters fails", async () => {
+    it("Should return a response of status 500 and an error message when searchForCharacterByTerm fails", async () => {
       const mockError = new Error("Service failure");
       mockCharacterService.searchCharactersByTerm.mockRejectedValue(mockError);
 
@@ -67,7 +120,7 @@ describe("CharactersController", () => {
   });
 
   describe("fetchCharacterFor", () => {
-    it("should return 200 and data when fetchCharacterForUrl is successful", async () => {
+    it("Should return a response of status 200 and data when fetchCharacterForUrl is successful", async () => {
       const mockData: SwapiCharResponse = {
         birth_year: "19 BBY",
         eye_color: "Blue",
@@ -121,7 +174,7 @@ describe("CharactersController", () => {
       });
     });
 
-    it("should return 500 and an error message if url query is missing", async () => {
+    it("Should return a response of status 500 and an error message if url query is missing", async () => {
       req.query = {};
       await charactersController.fetchCharacterFor(
         req as Request,

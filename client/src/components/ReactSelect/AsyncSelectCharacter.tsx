@@ -27,7 +27,6 @@ const AsyncSelectCharacter: FC<CharacterSelectProps> = ({ id }) => {
   return (
     <AsyncSelect
       id={id}
-      cacheOptions
       loadOptions={promiseCharacters}
       value={{ value: selectedCharacter.url, label: selectedCharacter.name }}
       onChange={(selectedOption) =>

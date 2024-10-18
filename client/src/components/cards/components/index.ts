@@ -1,2 +1,1 @@
-export * from "./CharacterAttribute";
-export * from "./CharacterDisplay";
+export * from "./Attributes";
