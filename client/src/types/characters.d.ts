@@ -1,20 +1,20 @@
 interface SwapiCharResponse {
-  name: string; 
-  birth_year: string; 
-  eye_color: string; 
+  name: string;
+  birth_year: string;
+  eye_color: string;
   gender: "Male" | "Female" | "unknown" | "n/a";
-  hair_color: string; 
-  height: string; 
-  mass: string; 
-  skin_color: string; 
-  homeworld: string; 
+  hair_color: string;
+  height: string;
+  mass: string;
+  skin_color: string;
+  homeworld: string;
   films: string[];
-  species: string[]; 
+  species: string[];
   starships: string[];
   vehicles: string[];
-  url: string; 
-  created: string; 
-  edited: string; 
+  url: string;
+  created: string;
+  edited: string;
   imageUrl: string;
 }
 
@@ -38,4 +38,23 @@ interface CharacterOption {
 interface ComparisonState {
   primary: string;
   secondary: string;
+}
+
+interface ComparisonResponse {
+  name: {
+    primary: string;
+    seconday: string;
+  };
+  birth_year: string;
+  eye_color: PreferenceComparison;
+  gender: PreferenceComparison;
+  hair_color: PreferenceComparison;
+  height: string;
+  mass: string;
+  skin_color: PreferenceComparison;
+  homeworld: {
+    primary: string;
+    seconday: string;
+  };
+  films: string;
 }

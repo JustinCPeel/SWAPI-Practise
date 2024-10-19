@@ -1,9 +1,8 @@
-import AsyncSelect from "react-select/async";
-import { searchCharacter } from "../../services/api";
-import { FC, SetStateAction, useState } from "react";
-import { useCharacter } from "../../hooks/useCharacter";
-import { GroupBase, StylesConfig } from "react-select";
 import { motion } from "framer-motion";
+import { FC } from "react";
+import AsyncSelect from "react-select/async";
+import { useCharacter } from "../../hooks/useCharacter";
+import { searchCharacter } from "../../services/api";
 
 interface CharacterSelectProps {
   id: string;

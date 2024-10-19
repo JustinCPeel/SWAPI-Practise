@@ -38,7 +38,11 @@ export const Logo: FC<AnimatedLogo> = ({ handleAnimationComplete }) => {
       }}
       onAnimationComplete={handleAnimationComplete}
     >
-      <img src="/assets/images/logo_edit.png" className="starwars-logo" />
+      <img
+        src="/assets/images/logo_edit.png"
+        className="starwars-logo"
+        alt="logo"
+      />
       <Button label="Begin Comparisons" onClick={startAnimation} />
     </motion.div>
   );

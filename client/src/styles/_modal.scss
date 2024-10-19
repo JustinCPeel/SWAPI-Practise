@@ -1,0 +1,53 @@
+.modal-background {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.8);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  z-index: 9999;
+
+  .modal-container {
+    position: absolute;
+    min-width: 144px;
+    height: auto;
+    width: 100%;
+    max-width: 391px;
+    background: grey url("../../public/assets/images/comparison.webp") center
+      center no-repeat;
+    background-size: cover;
+    min-height: 300px;
+    max-height: 90vh;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    .image-overlay {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      border-radius: 0.5rem;
+      background-color: rgba($color: #c5c5c5, $alpha: 0.6);
+      z-index: 999;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+    }
+    &.max-width {
+      width: 100%;
+      max-width: 700px;
+    }
+  }
+
+  @media screen and (max-width:700px) {
+    &.max-width{
+      max-width: 450px;
+    }
+    
+  }
+}

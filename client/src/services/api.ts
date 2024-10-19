@@ -32,9 +32,9 @@ export const fetchCharacterForUrl = async (
 
 export const compareCharacterStats = async (
   characters: ComparisonState
-): Promise<SwapiCharResponse> => {
+): Promise<ComparisonResponse> => {
   try {
-    const response = await axios.post<SwapiCharResponse>(
+    const response = await axios.post<ComparisonResponse>(
       "characters",
       characters
     );
