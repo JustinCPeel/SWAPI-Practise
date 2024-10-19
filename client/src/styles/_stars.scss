@@ -15,19 +15,18 @@ $shadows-big: multiple-box-shadow(100);
 #stars,
 #stars2,
 #stars3 {
-  position: absolute; // Make sure stars are positioned absolutely
+  position: absolute;
   background: transparent;
   animation: animStar linear infinite;
 
   &:after {
     content: " ";
     position: absolute;
-    top: 100vh; // Start from the bottom of the viewport
+    top: 100vh;
     background: transparent;
   }
 }
 
-// Individual star styles
 #stars {
   width: 1px;
   height: 1px;
@@ -51,9 +50,9 @@ $shadows-big: multiple-box-shadow(100);
 
 @keyframes animStar {
   from {
-    transform: translateY(0); // Start at the bottom
+    transform: translateY(0);
   }
   to {
-    transform: translateY(-100vh); // Move to the top of the viewport
+    transform: translateY(-100vh);
   }
 }

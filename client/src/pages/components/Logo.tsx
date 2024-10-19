@@ -20,9 +20,9 @@ export const Logo: FC<AnimatedLogo> = ({ handleAnimationComplete }) => {
         animate
           ? {
               opacity: 0,
-              scale: 0.8, // Shrink the element to 80% of its original size
-              rotateX: -55, // Rotate slightly on the X-axis to simulate flipping
-              y: -150
+              scale: 0.8,
+              rotateX: -55,
+              y: -150,
             }
           : {}
       }

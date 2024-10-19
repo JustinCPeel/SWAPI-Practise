@@ -66,11 +66,11 @@ const AsyncSelectCharacter: FC<CharacterSelectProps> = ({ id }) => {
               top: 0,
               left: 0,
               width: "100%",
-              height: "2px", // Top border line
-              backgroundColor: "transparent", // Initially hidden
+              height: "2px",
+              backgroundColor: "transparent",
               transition:
-                "background-color 0.3s ease-in-out, transform 0.3s ease-in-out", // Animate both
-              transform: "scaleX(0)", // Scale down initially
+                "background-color 0.3s ease-in-out, transform 0.3s ease-in-out",
+              transform: "scaleX(0)",
             },
             "::after": {
               content: '""',
@@ -78,20 +78,20 @@ const AsyncSelectCharacter: FC<CharacterSelectProps> = ({ id }) => {
               bottom: 0,
               left: 0,
               width: "100%",
-              height: "2px", // Bottom border line
-              backgroundColor: "transparent", // Initially hidden
+              height: "2px",
+              backgroundColor: "transparent",
               transition:
-                "background-color 0.3s ease-in-out, transform 0.3s ease-in-out", // Animate both
-              transform: "scaleX(0)", // Scale down initially
+                "background-color 0.3s ease-in-out, transform 0.3s ease-in-out",
+              transform: "scaleX(0)",
             },
 
             ":hover::before, :hover::after": {
-              border: "#15f2fd", // Blue line when hovered
-              transform: "scaleX(1)", // Expand animation
+              border: "#15f2fd",
+              transform: "scaleX(1)",
             },
             ":focus::before, :focus::after": {
-              backgroundColor: "#ff0000", // Red line when focused
-              transform: "scaleX(1)", // Expand on focus
+              backgroundColor: "#ff0000",
+              transform: "scaleX(1)",
             },
           }),
           menu: (base) => ({

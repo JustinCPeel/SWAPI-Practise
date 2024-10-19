@@ -22,5 +22,5 @@ app.use((req: Request, res: Response) => {
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
-  console.log(listEndpoints(app)); // Log all endpoints to the console
+  console.log(listEndpoints(app));
 });
