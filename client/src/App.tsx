@@ -6,9 +6,7 @@ import "./styles/index.scss";
 function App() {
   return (
     <AxiosInterceptor>
-      <>
-        <Home></Home>
-      </>
+      <Home />
     </AxiosInterceptor>
   );
 }

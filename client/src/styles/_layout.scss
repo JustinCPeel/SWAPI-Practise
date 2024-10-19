@@ -1,8 +1,10 @@
 .starwars-container {
   display: flex;
   flex-direction: column;
-  padding: 1.25rem;
+  padding: 1.25rem 5rem;
   row-gap: 2rem;
+  max-width: 1366px;
+  margin: auto;
   justify-content: center;
   align-items: center;
   .starwars-logo {
@@ -12,6 +14,7 @@
   }
   .grid-layout {
     display: grid;
+    padding-top: 100px;
     flex: 1;
     grid-template-areas:
       "primary-search secondary-search"
@@ -19,6 +22,7 @@
     column-gap: 0.5rem;
     row-gap: 2.5rem;
     width: 100%;
+    z-index: 999;
     @media screen and (max-width: 600px) {
       row-gap: 2rem;
       grid-template-areas:

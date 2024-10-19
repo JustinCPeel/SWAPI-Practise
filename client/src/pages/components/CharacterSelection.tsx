@@ -4,6 +4,8 @@ import { CharacterProvider } from "../../hooks/useCharacter";
 import AsyncSelectCharacter from "../../components/ReactSelect/AsyncSelectCharacter";
 import CharacterDisplayCard from "../../components/cards/CharacterDisplayCard";
 import { Comparisson } from "../../components/comparison";
+import { LightSabers } from "../../components/lightSaber";
+import { LightSaberSvg } from "../../components/lightSaber/LightSaberSvg";
 
 export const CharacterSelection = () => {
   const [comparisonState, setComparisonState] = useState<ComparisonState>({
@@ -48,6 +50,16 @@ export const CharacterSelection = () => {
         primary={comparisonState.primary}
         secondary={comparisonState.secondary}
       />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 1.5 }}
+      >
+        <div>
+          <LightSaberSvg />
+          <LightSabers charactersSelected={comparisonState} />
+        </div>
+      </motion.div>
     </>
   );
 };

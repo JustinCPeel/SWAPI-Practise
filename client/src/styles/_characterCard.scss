@@ -101,10 +101,10 @@ $character-backgrounds: (
 }
 
 .card {
-  height: 600px;
+  height: 500px;
   min-width: 200px;
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
   background: grey;
   border-radius: 10px;
   transition: background 0.8s, height 0.8s ease, width 1.8s ease; // Add transition for height and width
@@ -155,10 +155,10 @@ $character-backgrounds: (
   }
 
   .border {
-    height: 590px;
+    height: 490px;
     min-width: 200px;
     width: 100%;
-    max-width: 390px;
+    max-width: 340px;
     background: transparent;
     border-radius: 10px;
     transition: border 1s, height 0.8s ease, width 1.8s ease;
@@ -194,7 +194,7 @@ $character-backgrounds: (
     fill: #fff;
     color: #fff;
     padding: 10px;
-    top: 460px;
+    top: 360px;
     display: flex;
     flex-direction: row;
     align-items: flex-start;

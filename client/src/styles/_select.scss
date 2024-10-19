@@ -1,0 +1,16 @@
+.floating {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  justify-self: center;
+
+  .floating-label {
+    color: white;
+    background: transparent;
+    font-weight: 600;
+    position: absolute;
+    left: 0.5rem;
+    top: -0.5rem;
+    z-index: 9999;
+  }
+}

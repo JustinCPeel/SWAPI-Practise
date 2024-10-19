@@ -13,11 +13,12 @@
   background-color: #222;
   padding: 17px 15px;
   margin: 0 auto;
+  z-index: 9999;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 
   span {
     position: relative;
-    z-index: 1;
+    z-index: 999;
   }
 
   &::after {

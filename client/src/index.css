@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
 }
 * {
   box-sizing: border-box;
@@ -15,8 +16,6 @@ code {
 }
 #root {
   min-height: 100vh;
-  /* min-width: 100vw; */
-  background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
   background-size: 100vh auto;
   font-family: sans-serif;
 }

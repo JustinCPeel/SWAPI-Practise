@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { CharacterSelection } from "./components/CharacterSelection";
 import { Logo } from "./components/Logo";
+import { Stars } from "../components/stars";
 
 export const Home: FC = () => {
   const [logoVisible, setLogoVisible] = useState<boolean>(true);
@@ -12,11 +13,14 @@ export const Home: FC = () => {
   };
 
   return (
-    <div className="starwars-container">
-      {logoVisible && (
-        <Logo handleAnimationComplete={handleAnimationComplete} />
-      )}
-      {gridVisible && <CharacterSelection />}
-    </div>
+    <>
+      <Stars />
+      <div className="starwars-container">
+        {logoVisible && (
+          <Logo handleAnimationComplete={handleAnimationComplete} />
+        )}
+        {gridVisible && <CharacterSelection />}
+      </div>
+    </>
   );
 };

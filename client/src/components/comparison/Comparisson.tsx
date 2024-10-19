@@ -32,9 +32,5 @@ export const Comparisson = ({ primary, secondary }: ComparisonState) => {
         <div>character details</div>
       </>
     );
-  return (
-    <>
-      <h1>Select characters to begin</h1>
-    </>
-  );
+  return null;
 };
