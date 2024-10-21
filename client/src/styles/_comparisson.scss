@@ -1,0 +1,28 @@
+.character-comparison {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  padding: 0.75rem;
+  .characteristic-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+  }
+  .characteristic {
+    font-weight: 600;
+    color: white;
+  }
+  p {
+    font-size: 14px;
+  }
+  .attribute-column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.25rem;
+  }
+  .attribute-entry {
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.75rem;
+  }
+}

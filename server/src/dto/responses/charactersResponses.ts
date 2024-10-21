@@ -26,20 +26,20 @@ export type PreferenceComparison = {
 export type ComparisonResponse = {
   name: {
     primary: string;
-    seconday: string;
+    secondary: string;
   };
-  birth_year: string;
+  birth_year: PreferenceComparison;
   eye_color: PreferenceComparison;
   gender: PreferenceComparison;
   hair_color: PreferenceComparison;
-  height: string;
-  mass: string;
+  height: PreferenceComparison;
+  mass: PreferenceComparison;
   skin_color: PreferenceComparison;
   homeworld: {
     primary: string;
-    seconday: string;
+    secondary: string;
   };
-  films: string;
+  films: PreferenceComparison;
 };
 
 export type CharactersMinimal = Pick<SwapiCharResponse, "url" | "name">;

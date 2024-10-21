@@ -1,16 +1,16 @@
 import axios from "axios";
 import { swapiToCharacterResponse } from "../dto/converters/character.converter";
 import {
+  CharacterFetch,
+  ComparisonRequest,
+} from "../dto/requests/charactersRequests";
+import {
   CharactersMinimal,
   ComparisonResponse,
   PagedCharacterResponse,
   PreferenceComparison,
   SwapiCharResponse,
 } from "../dto/responses/charactersResponses";
-import {
-  CharacterFetch,
-  ComparisonRequest,
-} from "../dto/requests/charactersRequests";
 import { PlanetResponse } from "../dto/responses/planetResponses";
 
 /**
@@ -94,10 +94,19 @@ export class CharacterService {
     }
   }
 
+  /**
+   * This functions purpose is to compare the stats of two characters received via API and generate a comparison to display on the UI.
+   *
+   * @throws Throws an error if the API request fails.
+   * @returns {Promise<SwapiCharResponse>} The full details of the character being searched
+   */
   public async compareCharactersForUrls(
     req: ComparisonRequest
   ): Promise<ComparisonResponse> {
     try {
+      if (req.primary === "" || req.secondary === "")
+        throw Error("Please provide valid characters to compare");
+
       const primary = axios.get<SwapiCharResponse>(req.primary);
       const secondary = axios.get<SwapiCharResponse>(req.secondary);
 
@@ -127,19 +136,26 @@ export class CharacterService {
         throw new Error("Expected exactly two characters for comparions");
       const [firstCharacter, secondCharacter] = charsToCompare;
 
-      const filmCounts = {
-        firstCharacter: firstCharacter.films.length + 1,
-        secondCharacter: secondCharacter.films.length + 1,
-      };
-
       const comparison: ComparisonResponse = {
         name: {
           primary: firstCharacter.name,
-          seconday: secondCharacter.name,
+          secondary: secondCharacter.name,
         },
-        birth_year: this.compareBirthYears(firstCharacter, secondCharacter),
-        mass: this.compareMass(firstCharacter, secondCharacter),
-        height: this.compareHeight(firstCharacter, secondCharacter),
+        birth_year: {
+          primary: firstCharacter.birth_year,
+          secondary: secondCharacter.birth_year,
+          descritpion: this.compareBirthYears(firstCharacter, secondCharacter),
+        },
+        mass: {
+          primary: firstCharacter.mass,
+          secondary: secondCharacter.mass,
+          descritpion: this.compareMass(firstCharacter, secondCharacter),
+        },
+        height: {
+          primary: firstCharacter.height,
+          secondary: secondCharacter.height,
+          descritpion: this.compareHeight(firstCharacter, secondCharacter),
+        },
         gender: this.getPreferentialComparisonResponse(
           firstCharacter,
           secondCharacter,
@@ -166,9 +182,15 @@ export class CharacterService {
         ),
         homeworld: {
           primary: await this.getCharacterHomeWorld(firstCharacter.homeworld),
-          seconday: await this.getCharacterHomeWorld(secondCharacter.homeworld),
+          secondary: await this.getCharacterHomeWorld(secondCharacter.homeworld),
         },
-        films: `${firstCharacter.name} appeared in ${filmCounts.firstCharacter} films, ${secondCharacter.name} appeared in ${filmCounts.secondCharacter}`,
+        films: {
+          primary: firstCharacter.films.length.toString(),
+          secondary: secondCharacter.films.length.toString(),
+          descritpion: `There is a difference of ${Math.abs(
+            firstCharacter.films.length - secondCharacter.films.length
+          )} in film appearances`,
+        },
       };
 
       return comparison;
@@ -313,7 +335,7 @@ export class CharacterService {
           ageDifference = Math.abs(
             parsedSecondCharacterBirthYear - parsedFirstCharacterBirthYear
           );
-        return `The age difference is between ${firstName} (born in ${firstBirthYear}) and ${secondName} (born in ${secondBirthYear}) is ${ageDifference}.`;
+        return `The age difference between ${firstName} (born in ${firstBirthYear}) and ${secondName} (born in ${secondBirthYear}) is ${ageDifference} years.`;
       }
 
       if (isFirstBBY && isSecondBBY) {
@@ -324,7 +346,7 @@ export class CharacterService {
           ageDifference = Math.abs(
             parsedSecondCharacterBirthYear - parsedFirstCharacterBirthYear
           );
-        return `The age difference is between ${firstName} (born in ${firstBirthYear}) and ${secondName} (born in ${secondBirthYear}) is ${ageDifference}.`;
+        return `The age difference between ${firstName} (born in ${firstBirthYear}) and ${secondName} (born in ${secondBirthYear}) is ${ageDifference} years.`;
       }
 
       if (isFirstBBY && !isSecondBBY) {

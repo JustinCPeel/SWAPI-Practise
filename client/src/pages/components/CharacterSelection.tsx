@@ -6,8 +6,11 @@ import CharacterDisplayCard from "../../components/cards/CharacterDisplayCard";
 import { Comparisson } from "../../components/comparison";
 import { LightSabers } from "../../components/lightSaber";
 import { LightSaberSvg } from "../../components/lightSaber/LightSaberSvg";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import FlippyCard from "../../components/cards/FlippyCard";
 
 export const CharacterSelection = () => {
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 700px)");
   const [comparisonState, setComparisonState] = useState<ComparisonState>({
     primary: "",
     secondary: "",
@@ -31,8 +34,12 @@ export const CharacterSelection = () => {
           }
         >
           <>
-            <AsyncSelectCharacter id="primary-character-select" />
-            <CharacterDisplayCard id="primary-character-card" />
+            <AsyncSelectCharacter id="primary-character-select" zIndex={8} />
+            {isSmallDevice ? (
+              <FlippyCard id="primary-flippy" />
+            ) : (
+              <CharacterDisplayCard id="primary-character-card" />
+            )}
           </>
         </CharacterProvider>
         <CharacterProvider
@@ -41,8 +48,12 @@ export const CharacterSelection = () => {
           }
         >
           <>
-            <AsyncSelectCharacter id="secondary-character-select" />
-            <CharacterDisplayCard id="secondary-character-card" />
+            <AsyncSelectCharacter id="secondary-character-select" zIndex={6} />
+            {isSmallDevice ? (
+              <FlippyCard id="secondary-flippy" />
+            ) : (
+              <CharacterDisplayCard id="secondary-character-card" />
+            )}
           </>
         </CharacterProvider>
       </motion.div>

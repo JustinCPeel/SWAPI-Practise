@@ -10,6 +10,13 @@
   left: 0px;
   z-index: 9999;
 
+  @media screen and (max-width: 700px) {
+    left: unset;
+  }
+  @media screen and (max-width: 350px) {
+    left: unset;
+  }
+
   .modal-container {
     position: absolute;
     min-width: 144px;
@@ -25,29 +32,47 @@
     display: flex;
     flex-direction: column;
     row-gap: 20px;
+    height: auto;
     .image-overlay {
       position: absolute;
+      top: 0;
+      left: 0;
       height: 100%;
       width: 100%;
       border-radius: 0.5rem;
       background-color: rgba($color: #c5c5c5, $alpha: 0.6);
-      z-index: 999;
+      z-index: 1;
     }
+
     .modal-actions {
       display: flex;
       justify-content: space-between;
       flex-direction: row;
     }
+
+    .modal-content {
+      position: relative;
+      z-index: 2; // Ensure content is above the overlay
+    }
     &.max-width {
       width: 100%;
-      max-width: 700px;
+      max-width: 800px;
+      min-width: 200px;
     }
-  }
 
-  @media screen and (max-width:700px) {
-    &.max-width{
-      max-width: 450px;
+    @media screen and (max-width: 700px) {
+      &.max-width {
+        width: 100%;
+        max-width: 350px;
+        min-width: 200px;
+      }
     }
-    
+    @media screen and (max-width: 350px) {
+      &.max-width {
+        width: 100%;
+        max-width: 300px;
+        min-width: 200px;
+      }
+    }
   }
 }

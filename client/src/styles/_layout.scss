@@ -24,11 +24,14 @@
       "primary-search secondary-search"
       "primary-character secondary-character";
     column-gap: 0.5rem;
+    grid-template-columns: 1fr 1fr;
     row-gap: 2.5rem;
     width: 100%;
     z-index: 999;
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 700px) {
+      grid-template-columns: unset;
       row-gap: 2rem;
+      justify-content: center;
       grid-template-areas:
         "primary-search"
         "secondary-search"

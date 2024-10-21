@@ -38,7 +38,7 @@ describe("Character API integration tests", () => {
 
     it("should throw an error if fetching characters fails", async () => {
       const mockError = {
-        response: { data: { message: "Character not found" } },
+        response: { data: {} },
       };
 
       mockedAxios.get.mockRejectedValueOnce(mockError);
@@ -46,6 +46,24 @@ describe("Character API integration tests", () => {
       await expect(searchCharacter("Skywalker")).rejects.toThrow(
         "Character not found"
       );
+    });
+
+    it("should return an empty list if no characters match the search term", async () => {
+      const mockResponse = { data: [] };
+
+      mockedAxios.get.mockResolvedValueOnce(mockResponse);
+
+      const result = await searchCharacter("NonExistentCharacter");
+
+      expect(mockedAxios.get).toHaveBeenCalledWith("characters", {
+        params: { search: "NonExistentCharacter" },
+      });
+
+      expect(result).toEqual([]);
+    });
+
+    it("should throw an error for an invalid search term", async () => {
+      await expect(searchCharacter("")).rejects.toThrow("Invalid search term");
     });
   });
 
@@ -78,6 +96,23 @@ describe("Character API integration tests", () => {
       await expect(
         fetchCharacterForUrl("https://swapi.dev/api/people/1/")
       ).rejects.toThrow("Error fetching character");
+    });
+
+    it("should throw an error for an invalid URL", async () => {
+      await expect(fetchCharacterForUrl("invalid-url")).rejects.toThrow(
+        "Invalid URL"
+      );
+    });
+
+    it("should return null if no data is returned for a valid URL", async () => {
+      const mockResponse = { data: null };
+
+      mockedAxios.get.mockResolvedValueOnce(mockResponse);
+
+      const result = await fetchCharacterForUrl(
+        "https://swapi.dev/api/people/1/"
+      );
+      expect(result).toBeNull();
     });
   });
 
@@ -120,5 +155,54 @@ describe("Character API integration tests", () => {
         "Error comparing characters"
       );
     });
+
+    it("should throw an error if primary character URL is missing", async () => {
+      const mockCharacters: ComparisonState = {
+        primary: "",
+        secondary: "https://swapi.dev/api/people/2/",
+      };
+
+      await expect(compareCharacterStats(mockCharacters)).rejects.toThrow(
+        "Primary character URL is required"
+      );
+    });
+
+    it("should handle unexpected response structure", async () => {
+      const mockResponse = { data: { unexpectedField: "value" } };
+
+      mockedAxios.post.mockResolvedValueOnce(mockResponse);
+
+      const mockCharacters: ComparisonState = {
+        primary: "https://swapi.dev/api/people/1/",
+        secondary: "https://swapi.dev/api/people/2/",
+      };
+
+      const result = await compareCharacterStats(mockCharacters);
+      expect(result).toBeUndefined(); 
+    });
+  });
+
+  it("should throw an error when a 404 status code is returned", async () => {
+    const mockError = {
+      response: { status: 404, data: { message: "Not Found" } },
+    };
+
+    mockedAxios.get.mockRejectedValueOnce(mockError);
+
+    await expect(searchCharacter("NonExistentCharacter")).rejects.toThrow(
+      "Not Found"
+    );
+  });
+
+  it("should throw an error when a 500 status code is returned", async () => {
+    const mockError = {
+      response: { status: 500, data: { message: "Server Error" } },
+    };
+
+    mockedAxios.get.mockRejectedValueOnce(mockError);
+
+    await expect(
+      fetchCharacterForUrl("https://swapi.dev/api/people/1/")
+    ).rejects.toThrow("Server Error");
   });
 });

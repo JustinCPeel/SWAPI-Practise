@@ -1,0 +1,159 @@
+.flippy-card {
+  width: 260px;
+  min-height: 300px;
+  perspective: 500px;
+  text-align: center;
+  flex-grow: 1;
+  position: relative;
+
+  .fliffy-wrapper-image {
+    background: rgb(56, 56, 56) url("../../public/assets/images/darth.jpeg")
+      center center no-repeat;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    // z-index: 9999;
+    filter: blur(1px) grayscale(60%);
+    border-radius: 12px;
+  }
+  .detail-wrapper {
+    flex-grow: 1;
+  }
+  p.label-value {
+    margin: 5px;
+    font-size: 18px;
+  }
+  p.label {
+    margin: auto;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &.has-description {
+    max-width: 300px;
+    min-width: 240px;
+    min-height: 370px;
+  }
+  img {
+    width: 120px;
+    height: 150px;
+    // object-fit: contain;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.378);
+    filter: opacity(0.9);
+  }
+  a {
+    img {
+      height: 16px;
+      margin-right: 5px;
+      width: auto;
+      margin-bottom: 3px;
+    }
+    text-decoration: none;
+    color: unset;
+  }
+  .flippy-description {
+    min-height: 350px;
+    padding: 10px;
+  }
+
+  .flippy-content {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+
+  .flippy-front,
+  .flippy-back {
+    &.padded {
+      padding: 16px;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    text-align: center;
+    border-radius: 12px;
+    backface-visibility: hidden;
+  }
+
+  .flippy-back.padded {
+    padding-bottom: 50px !important;
+  }
+
+  .flippy-front {
+    cursor: pointer;
+  }
+  .flippy-title {
+    font-weight: 700;
+    font-size: 21px;
+    color: #ffffff;
+  }
+  .flippy-sub-title {
+    font-weight: 400;
+    font-size: 16px;
+    color: #d9d9d9;
+  }
+  .flippy-description {
+    font-weight: normal;
+    font-size: 18px;
+    color: #000;
+  }
+
+  .flippy-back {
+    transform: rotateY(180deg);
+    color: rgb(185, 185, 185);
+    .attribute-wrapper {
+      width: 100%;
+      .attribute {
+        display: flex;
+        color: white;
+        flex-direction: row;
+        column-gap: 5px;
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  &:hover .flippy-content {
+    transform: rotateY(-5deg);
+    transition: transform 0.5s;
+  }
+
+  &.flipped .flippy-content {
+    transform: rotateY(180deg);
+    transition: transform 0.5s;
+  }
+
+  @media (max-width: 1400px) {
+    width: 240px;
+  }
+  @media (max-width: 1200px) {
+    width: 290px;
+  }
+  @media (max-width: 992px) {
+    width: 210px;
+  }
+  @media (max-width: 768px) {
+    width: 240px;
+  }
+
+  @media (max-width: 534px) {
+    width: 100%;
+  }
+}

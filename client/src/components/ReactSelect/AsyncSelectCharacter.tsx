@@ -3,9 +3,11 @@ import { FC } from "react";
 import AsyncSelect from "react-select/async";
 import { useCharacter } from "../../hooks/useCharacter";
 import { searchCharacter } from "../../services/api";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 interface CharacterSelectProps {
   id: string;
+  zIndex: number;
 }
 
 /** An Asynchronous searchable select element that utilizes the react-select library.
@@ -15,7 +17,8 @@ interface CharacterSelectProps {
  *
  * @returns {JSX.Element} A custom select element
  */
-const AsyncSelectCharacter: FC<CharacterSelectProps> = ({ id }) => {
+const AsyncSelectCharacter: FC<CharacterSelectProps> = ({ id, zIndex }) => {
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
   const { selectedCharacter, setSelectedCharacter } = useCharacter();
 
   const promiseCharacters = (inputValue: string) => {
@@ -34,7 +37,7 @@ const AsyncSelectCharacter: FC<CharacterSelectProps> = ({ id }) => {
         styles={{
           container: (baseStyles) => ({
             ...baseStyles,
-            zIndex: 999,
+            zIndex: zIndex,
             color: "white",
             width: "100%",
             maxWidth: 400,
@@ -46,7 +49,7 @@ const AsyncSelectCharacter: FC<CharacterSelectProps> = ({ id }) => {
           }),
           control: (provided, state) => ({
             ...provided,
-            zIndex: 999,
+            zIndex: state.isFocused ? 999 : 1,
             color: "white",
             border: "none",
             backgroundColor: "rgba(77, 77, 77, 0.3)",
@@ -93,9 +96,12 @@ const AsyncSelectCharacter: FC<CharacterSelectProps> = ({ id }) => {
               transform: "scaleX(1)",
             },
           }),
-          menu: (base) => ({
+          menu: (base, state) => ({
             ...base,
-            backgroundColor: "rgba(55, 55, 55, 0.7)",
+            backgroundColor:
+              isSmallDevice && state.hasValue
+                ? "rgba(55, 55, 55, 1)"
+                : "rgba(55, 55, 55, 0.7)",
             borderRadius: "4px",
             zIndex: 999,
           }),
