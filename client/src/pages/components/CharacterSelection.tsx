@@ -7,7 +7,7 @@ import { Comparisson } from "../../components/comparison";
 import { LightSabers } from "../../components/lightSaber";
 import { LightSaberSvg } from "../../components/lightSaber/LightSaberSvg";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import FlippyCard from "../../components/cards/FlippyCard";
+import MobileDisplayCard from "../../components/cards/MobileDisplayCard";
 
 export const CharacterSelection = () => {
   const isSmallDevice = useMediaQuery("only screen and (max-width : 700px)");
@@ -36,7 +36,7 @@ export const CharacterSelection = () => {
           <>
             <AsyncSelectCharacter id="primary-character-select" zIndex={8} />
             {isSmallDevice ? (
-              <FlippyCard id="primary-flippy" />
+              <MobileDisplayCard id="primary-mobile-character" />
             ) : (
               <CharacterDisplayCard id="primary-character-card" />
             )}
@@ -50,7 +50,7 @@ export const CharacterSelection = () => {
           <>
             <AsyncSelectCharacter id="secondary-character-select" zIndex={6} />
             {isSmallDevice ? (
-              <FlippyCard id="secondary-flippy" />
+              <MobileDisplayCard id="secondary-mobile-character" />
             ) : (
               <CharacterDisplayCard id="secondary-character-card" />
             )}

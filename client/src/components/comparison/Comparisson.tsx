@@ -99,7 +99,7 @@ export const Comparisson = ({ primary, secondary }: ComparisonState) => {
                       icon={"skin"}
                     />
                     <Button
-                      label={"Dismiss"}
+                      label={"Close"}
                       onClick={() => setIsComponentVisible(false)}
                     />
                   </div>

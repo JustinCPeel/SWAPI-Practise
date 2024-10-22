@@ -1,4 +1,4 @@
-.flippy-card {
+.mobile-character-card {
   width: 260px;
   min-height: 300px;
   perspective: 500px;
@@ -6,7 +6,7 @@
   flex-grow: 1;
   position: relative;
 
-  .fliffy-wrapper-image {
+  .mobile-character-wrapper-image {
     background: rgb(56, 56, 56) url("../../public/assets/images/darth.jpeg")
       center center no-repeat;
     background-size: cover;
@@ -53,12 +53,12 @@
     text-decoration: none;
     color: unset;
   }
-  .flippy-description {
+  .mobile-character-description {
     min-height: 350px;
     padding: 10px;
   }
 
-  .flippy-content {
+  .mobile-character-content {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     position: absolute;
     width: 100%;
@@ -71,8 +71,8 @@
     row-gap: 1rem;
   }
 
-  .flippy-front,
-  .flippy-back {
+  .mobile-character-front,
+  .mobile-character-back {
     &.padded {
       padding: 16px;
     }
@@ -90,30 +90,26 @@
     backface-visibility: hidden;
   }
 
-  .flippy-back.padded {
-    padding-bottom: 50px !important;
-  }
-
-  .flippy-front {
+  .mobile-character-front {
     cursor: pointer;
   }
-  .flippy-title {
+  .mobile-character-title {
     font-weight: 700;
     font-size: 21px;
     color: #ffffff;
   }
-  .flippy-sub-title {
+  .mobile-character-sub-title {
     font-weight: 400;
     font-size: 16px;
     color: #d9d9d9;
   }
-  .flippy-description {
+  .mobile-character-description {
     font-weight: normal;
     font-size: 18px;
     color: #000;
   }
 
-  .flippy-back {
+  .mobile-character-back {
     transform: rotateY(180deg);
     color: rgb(185, 185, 185);
     .attribute-wrapper {
@@ -130,12 +126,12 @@
     }
   }
 
-  &:hover .flippy-content {
+  &:hover .mobile-character-content {
     transform: rotateY(-5deg);
     transition: transform 0.5s;
   }
 
-  &.flipped .flippy-content {
+  &.flipped .mobile-character-content {
     transform: rotateY(180deg);
     transition: transform 0.5s;
   }
