@@ -25,25 +25,25 @@ This project is the **client** for the Star Wars Character Comparison Tool, buil
    git clone <https://github.com/JustinCPeel/SWAPI-Practise.git>
 
 2. Navigate to the client folder.
-   cd client
+   `cd client`
 
 3. Install dependencies using npm.
-   npm install
+   `npm install`
 
 ## Project Structure
 
 The project is structured as follows:
 
-├──root/ 
-
-│    ├── client/ 
-
-│    │   ├── public/ 
-
-│    │   └── src/ 
-
-│    │   └── package.json
-
+```
+root/ 
+├── client/ 
+│    ├── public/ 
+│    └── src/ 
+│    └── package.json
+├── server/
+│    └── src/ 
+│    └── package.json
+```
 ## Features
 
 - Character Comparison: Select two characters from the Star Wars universe and compare their attributes.
