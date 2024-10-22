@@ -246,8 +246,15 @@ interface CharacterDescription {
 export function getCharacterDescriptionText(
   name: string
 ): CharacterDescription {
+  const lowerCaseName = name.toLowerCase();
+
+  // Find a matching key in DESCRIPTIONS by comparing the lowercased version
+  const matchingKey = Object.keys(DESCRIPTIONS).find(
+    key => key.toLowerCase() === lowerCaseName
+  );
+
   const description: CharacterDescription = DESCRIPTIONS[
-    name as keyof typeof DESCRIPTIONS
+    matchingKey as keyof typeof DESCRIPTIONS
   ] || {
     quote: "The force is not with you, you padawan",
     description:

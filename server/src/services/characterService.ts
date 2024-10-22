@@ -1,4 +1,5 @@
 import axios from "axios";
+import { swapiToCharacterResponse } from "../dto/converters/character.converter";
 import {
   CharacterFetch,
   ComparisonRequest,
@@ -11,7 +12,6 @@ import {
   SwapiCharResponse,
 } from "../dto/responses/charactersResponses";
 import { PlanetResponse } from "../dto/responses/planetResponses";
-import { swapiToCharacterResponse } from "../dto/converters/character.converter";
 
 /**
  * The CharacterService is a class based service which is used to fetch the data from the SWAPI.
@@ -310,63 +310,38 @@ export class CharacterService {
     firstCharacter: SwapiCharResponse,
     secondCharacter: SwapiCharResponse
   ): string {
-    try {
-      const firstBirthYear = firstCharacter.birth_year;
-      const firstName = firstCharacter.name;
+    const firstBirthYear = this.parseBirthYear(firstCharacter.birth_year);
+    const secondBirthYear = this.parseBirthYear(secondCharacter.birth_year);
 
-      const secondBirthYear = secondCharacter.birth_year;
-      const secondName = secondCharacter.name;
-
-      const parsedFirstCharacterBirthYear = parseInt(
-        firstBirthYear.replace(/BBY|ABY/, ""),
-        10
-      );
-      const parsedSecondCharacterBirthYear = parseInt(
-        secondBirthYear.replace(/BBY|ABY/, ""),
-        10
-      );
-
-      const isFirstBBY = firstBirthYear.includes("BBY");
-      const isSecondBBY = secondBirthYear.includes("BBY");
-
-      if (!isFirstBBY && !isSecondBBY) {
-        let ageDifference: number = Math.abs(
-          parsedFirstCharacterBirthYear - parsedSecondCharacterBirthYear
-        );
-        if (parsedSecondCharacterBirthYear > parsedFirstCharacterBirthYear)
-          ageDifference = Math.abs(
-            parsedSecondCharacterBirthYear - parsedFirstCharacterBirthYear
-          );
-        return `The age difference between ${firstName} (born in ${firstBirthYear}) and ${secondName} (born in ${secondBirthYear}) is ${ageDifference} years.`;
-      }
-
-      if (isFirstBBY && isSecondBBY) {
-        let ageDifference: number = Math.abs(
-          parsedFirstCharacterBirthYear - parsedSecondCharacterBirthYear
-        );
-        if (parsedSecondCharacterBirthYear > parsedFirstCharacterBirthYear)
-          ageDifference = Math.abs(
-            parsedSecondCharacterBirthYear - parsedFirstCharacterBirthYear
-          );
-        return `The age difference between ${firstName} (born in ${firstBirthYear}) and ${secondName} (born in ${secondBirthYear}) is ${ageDifference} years.`;
-      }
-
-      if (isFirstBBY && !isSecondBBY) {
-        const ageDifference =
-          parsedFirstCharacterBirthYear + parsedSecondCharacterBirthYear;
-        return `${firstName} (born in ${firstBirthYear}) is older than ${secondName} (born in ${secondBirthYear}) by ${ageDifference} years. `;
-      }
-
-      if (!isFirstBBY && isSecondBBY) {
-        const ageDifference =
-          parsedFirstCharacterBirthYear + parsedSecondCharacterBirthYear;
-        return `${firstName} (born in ${firstBirthYear}) is older than ${secondName} (born in ${secondBirthYear}) by ${ageDifference} years. `;
-      }
-
-      return "Are the Birth Years correct?";
-    } catch (error) {
-      return "Are the Birth Years correct?";
+    if (!firstBirthYear || !secondBirthYear) {
+      return "No valid birth years to compare";
     }
+
+    const { year: firstYear, isBBY: isFirstBBY } = firstBirthYear;
+    const { year: secondYear, isBBY: isSecondBBY } = secondBirthYear;
+
+    const ageDifference = Math.abs(firstYear - secondYear);
+    const olderMessage =
+      isFirstBBY && !isSecondBBY
+        ? `${firstCharacter.name} is older than ${secondCharacter.name}`
+        : !isFirstBBY && isSecondBBY
+        ? `${secondCharacter.name} is older than ${firstCharacter.name}`
+        : `${firstCharacter.name} and ${secondCharacter.name} were born in the same era`;
+
+    return `${olderMessage}. The age difference is ${ageDifference} years.`;
+  }
+
+  private parseBirthYear(
+    birthYear: string
+  ): { year: number; isBBY: boolean } | null {
+    const parsedYear = parseFloat(birthYear.replace(/BBY|ABY/, ""));
+    const isBBY = birthYear.includes("BBY");
+
+    if (isNaN(parsedYear)) {
+      return null;
+    }
+
+    return { year: parsedYear, isBBY };
   }
 
   /**

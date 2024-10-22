@@ -1,184 +1,310 @@
 import axios from "axios";
-import { CharacterService } from "../services/characterService";
-import { PagedCharacterResponse } from "../dto/responses/charactersResponses";
+
 import {
-  EMPTY_PAGED_RESPONSE,
-  PAGED_CHARACTER_RESPOSE,
-} from "./mocks/characterMocks";
-import { CharacterFetch } from "../dto/requests/charactersRequests";
+  PagedCharacterResponse,
+  SwapiCharResponse,
+} from "../dto/responses/charactersResponses";
+import { CharacterService } from "../services/characterService";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-const AXIOS_OPTIONS = {
-  status: 200,
-  statusText: "OK",
-  headers: {},
-  config: { url: "https://swapi.dev/api/people/" },
-};
-
-describe("CharactersService", () => {
+describe("CharacterService", () => {
   let characterService: CharacterService;
-  let url: string = "https://swapi.dev/api/people/";
 
   beforeEach(() => {
     characterService = new CharacterService();
-
-    jest
-      .spyOn(characterService as any, "getCharacterHomeWorld")
-      .mockResolvedValue("Tatooine");
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
   });
 
   describe("searchCharactersByTerm", () => {
-    it("seacrching with no keyword, should return a list of characters", async () => {
-      const expectedApiResponse: PagedCharacterResponse =
-        PAGED_CHARACTER_RESPOSE;
+    it("should return a list of characters based on the search term", async () => {
+      const mockResponse: PagedCharacterResponse = {
+        count: 1,
+        results: [
+          {
+            name: "Luke Skywalker",
+            height: "172",
+            mass: "77",
+            hair_color: "blond",
+            skin_color: "fair",
+            eye_color: "blue",
+            birth_year: "19BBY",
+            gender: "Male",
+            homeworld: "https://swapi.dev/api/planets/1/",
+            films: [
+              "https://swapi.dev/api/films/1/",
+              "https://swapi.dev/api/films/2/",
+              "https://swapi.dev/api/films/3/",
+              "https://swapi.dev/api/films/6/",
+            ],
+            species: [],
+            vehicles: [
+              "https://swapi.dev/api/vehicles/14/",
+              "https://swapi.dev/api/vehicles/30/",
+            ],
+            starships: [
+              "https://swapi.dev/api/starships/12/",
+              "https://swapi.dev/api/starships/22/",
+            ],
+            created: "2014-12-09T13:50:51.644000Z",
+            edited: "2014-12-20T21:17:56.891000Z",
+            url: "https://swapi.dev/api/people/1/",
+          },
+        ],
+        next: "",
+        previous: "",
+      };
 
+      // Mock the Axios GET request to resolve with the mockResponse
       mockedAxios.get.mockResolvedValueOnce({
-        ...AXIOS_OPTIONS,
-        data: expectedApiResponse,
-      });
-
-      const result = await characterService.searchCharactersByTerm("");
-
-      expect(mockedAxios.get).toHaveBeenCalledTimes(1);
-      expect(mockedAxios.get).toHaveBeenCalledWith(url, {
-        params: {
-          search: "",
-          page: 1,
+        data: mockResponse,
+        status: 200,
+        statusText: "OK",
+        headers: {},
+        config: {
+          url: "https://swapi.dev/api/people/",
+          params: { search: "Luke" },
         },
-      });
-
-      expect(result).toEqual(
-        expectedApiResponse.results.map((data) => ({
-          name: data.name,
-          url: data.url,
-        }))
-      );
-    });
-
-    it("seacrching with keyword, should return a list of characters containing search term", async () => {
-      const expectedApiResponse: PagedCharacterResponse =
-        PAGED_CHARACTER_RESPOSE;
-
-      mockedAxios.get.mockResolvedValueOnce({
-        ...AXIOS_OPTIONS,
-        data: expectedApiResponse,
       });
 
       const result = await characterService.searchCharactersByTerm("Luke");
-
-      expect(mockedAxios.get).toHaveBeenCalledTimes(1);
-      expect(mockedAxios.get).toHaveBeenCalledWith(url, {
-        params: {
-          search: "Luke",
-          page: 1,
+     
+      expect(result).toEqual([
+        {
+          name: "Luke Skywalker",
+          url: "https://swapi.dev/api/people/1/",
         },
-      });
+      ]);
 
-      expect(result).toEqual(
-        expectedApiResponse.results.map((res) => ({
-          name: res.name,
-          url: res.url,
-        }))
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        "https://swapi.dev/api/people/",
+        {
+          params: { search: "Luke", page: 1 },
+        }
       );
     });
 
-    it("should throw an error if it fails to retrieve data from api call", async () => {
-      // I am not 100% sure what error SWAPI would send back, but this is a generic error, I often get in C#.
-      const mockedError = new Error("ERR_NETWORK");
+    it("should throw an error if the API request fails", async () => {
+      mockedAxios.get.mockRejectedValueOnce(new Error("API Error"));
 
-      mockedAxios.get.mockRejectedValueOnce(mockedError);
       await expect(
         characterService.searchCharactersByTerm("Luke")
-      ).rejects.toThrow("ERR_NETWORK");
+      ).rejects.toThrow("API Error");
 
-      expect(mockedAxios.get).toHaveBeenCalledTimes(1);
-      expect(mockedAxios.get).toHaveBeenCalledWith(url, {
-        params: {
-          search: "Luke",
-          page: 1,
-        },
-      });
-    });
-
-    it("seacrching with keyword, should return a blank list if no characters are found for the search term", async () => {
-      const expectedApiResponse: PagedCharacterResponse = EMPTY_PAGED_RESPONSE;
-
-      mockedAxios.get.mockResolvedValueOnce({
-        ...AXIOS_OPTIONS,
-        data: expectedApiResponse,
-      });
-
-      const result = await characterService.searchCharactersByTerm("Luke");
-
-      expect(mockedAxios.get).toHaveBeenCalledTimes(1);
-      expect(mockedAxios.get).toHaveBeenCalledWith(url, {
-        params: {
-          search: "Luke",
-          page: 1,
-        },
-      });
-
-      expect(result).toEqual(
-        expectedApiResponse.results.map((res) => ({
-          name: res.name,
-          url: res.url,
-        }))
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        "https://swapi.dev/api/people/",
+        {
+          params: { search: "Luke", page: 1 },
+        }
       );
-
-      expect(result).toHaveLength(0);
     });
   });
 
   describe("fetchCharacterForUrl", () => {
-    it("should return character data with homeworld when the request succeeds", async () => {
-      const mockResponse = {
-        data: {
-          name: "Luke Skywalker",
-          homeworld: "https://swapi.dev/api/planets/1/",
-          species: [],
-        },
-      };
-
-      mockedAxios.get.mockResolvedValueOnce(mockResponse);
-
-      const req: CharacterFetch = {
-        url: "https://swapi.dev/api/people/1/",
-      };
-
-      const result = await characterService.fetchCharacterForUrl(req);
-
-      expect(mockedAxios.get).toHaveBeenCalledWith(req.url);
-
-      // Expect result to have the mocked homeworld value
-      expect(result).toEqual({
+    it("should fetch a character based on the provided URL", async () => {
+      const mockCharacter: SwapiCharResponse = {
         name: "Luke Skywalker",
-        homeworld: "Tatooine",
+        height: "172",
+        mass: "77",
+        birth_year: "19BBY",
+        homeworld: "https://swapi.dev/api/planets/1/",
+        films: [],
+        vehicles: [],
         species: [],
+        starships: [],
+        eye_color: "",
+        gender: "Male",
+        hair_color: "",
+        skin_color: "",
+        url: "https://swapi.dev/api/people/1/",
+        created: "",
+        edited: "",
+      };
+
+      const mockPlanet = {
+        name: "Tatooine",
+        climate: "arid",
+        url: "https://swapi.dev/api/planet/1/",
+      };
+
+      mockedAxios.get.mockResolvedValueOnce({
+        data: mockCharacter,
+        status: 200,
+        statusText: "OK",
+        headers: {},
+        config: {
+          url: mockCharacter.url,
+        },
       });
+      mockedAxios.get.mockResolvedValueOnce({
+        data: mockPlanet,
+        status: 200,
+        statusText: "OK",
+        headers: {},
+        config: {
+          url: mockPlanet.url,
+        },
+      });
+
+      const result = await characterService.fetchCharacterForUrl({
+        url: "https://swapi.dev/api/people/1/",
+      });
+
+      expect(result.name).toEqual("Luke Skywalker");
+      expect(result.homeworld).toEqual(mockPlanet.name);
+
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        "https://swapi.dev/api/people/1/"
+      );
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        "https://swapi.dev/api/planets/1/"
+      );
     });
 
-    it("should throw an error when the axios request fails", async () => {
-      const mockError = new Error("Network Error");
+    it("should throw an error if the API request fails", async () => {
+      mockedAxios.get.mockRejectedValueOnce(new Error("API Error"));
 
-      // Mock axios.get to reject with an error
-      mockedAxios.get.mockRejectedValueOnce(mockError);
+      await expect(
+        characterService.fetchCharacterForUrl({
+          url: "https://swapi.dev/api/people/1/",
+        })
+      ).rejects.toThrow("API Error");
 
-      const req: CharacterFetch = {
-        url: "https://swapi.dev/api/people/1/",
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        "https://swapi.dev/api/people/1/"
+      );
+    });
+  });
+
+  describe("compareCharactersForUrls", () => {
+    it("should compare two characters based on their URLs", async () => {
+      const mockCharacter1: SwapiCharResponse = {
+        name: "Luke Skywalker",
+        height: "172",
+        mass: "77",
+        birth_year: "19BBY",
+        homeworld: "https://swapi.dev/api/planets/1/",
+        films: [],
+        vehicles: [],
+        species: [],
+        starships: [],
+        eye_color: "",
+        gender: "Male",
+        hair_color: "",
+        skin_color: "",
+        url: "",
+        created: "",
+        edited: "",
       };
 
-      await expect(characterService.fetchCharacterForUrl(req)).rejects.toThrow(
-        "Network Error"
+      const mockCharacter2: SwapiCharResponse = {
+        name: "Darth Vader",
+        height: "202",
+        mass: "136",
+        birth_year: "41.9BBY",
+        homeworld: "https://swapi.dev/api/planets/1/",
+        films: [],
+        vehicles: [],
+        species: [],
+        starships: [],
+        eye_color: "",
+        gender: "Male",
+        hair_color: "",
+        skin_color: "",
+        url: "",
+        created: "",
+        edited: "",
+      };
+
+      const comparisonRequest = {
+        primary: "https://swapi.dev/api/people/1/",
+        secondary: "https://swapi.dev/api/people/2/",
+      };
+
+      mockedAxios.get.mockResolvedValueOnce({
+        data: mockCharacter1,
+        status: 200,
+        statusText: "OK",
+        headers: {},
+        config: {
+          url: comparisonRequest.primary,
+        },
+      });
+      mockedAxios.get.mockResolvedValueOnce({
+        data: mockCharacter2,
+        status: 200,
+        statusText: "OK",
+        headers: {},
+        config: {
+          url: comparisonRequest.secondary,
+        },
+      });
+
+      const mockPlanet1 = {
+        name: "Tatooine",
+        climate: "arid",
+        url: "https://swapi.dev/api/planet/1/",
+      };
+
+      const mockPlanet = {
+        name: "Tatooine",
+        climate: "arid",
+        url: "https://swapi.dev/api/planet/1/",
+      };
+
+      mockedAxios.get.mockResolvedValueOnce({
+        data: mockPlanet1,
+        status: 200,
+        statusText: "OK",
+        headers: {},
+        config: {
+          url: mockPlanet1.url,
+        },
+      });
+
+      mockedAxios.get.mockResolvedValueOnce({
+        data: mockPlanet,
+        status: 200,
+        statusText: "OK",
+        headers: {},
+        config: {
+          url: mockPlanet.url,
+        },
+      });
+
+      const result = await characterService.compareCharactersForUrls(
+        comparisonRequest
       );
 
-      // Ensure axios.get was called with the correct URL before it failed
-      expect(mockedAxios.get).toHaveBeenCalledWith(req.url);
+      expect(result.name.primary).toBe("Luke Skywalker");
+      expect(result.name.secondary).toBe("Darth Vader");
+      expect(result.height.primary).toBe("172");
+      expect(result.height.secondary).toBe("202");
+
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        "https://swapi.dev/api/people/1/"
+      );
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        "https://swapi.dev/api/people/2/"
+      );
+
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        "https://swapi.dev/api/planets/1/"
+      );
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        "https://swapi.dev/api/planets/1/"
+      );
+    });
+
+    it("should throw an error if invalid character URLs are provided", async () => {
+      const comparisonRequest = {
+        primary: "",
+        secondary: "",
+      };
+
+      await expect(
+        characterService.compareCharactersForUrls(comparisonRequest)
+      ).rejects.toThrow("Please provide valid characters to compare");
     });
   });
 });
