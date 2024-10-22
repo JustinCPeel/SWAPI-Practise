@@ -25,12 +25,17 @@ const MobileDisplayCard: FC<MobileCardProps> = ({ id }) => {
   if (characterDetails.name === "") return null;
   return (
     <div
-      className={`mobile-character-card ${flipped ? "flipped" : ""} has-description`}
+      className={`mobile-character-card ${
+        flipped ? "flipped" : ""
+      } has-description`}
       id={id}
     >
       <div className="mobile-character-wrapper-image"></div>
       <div className="mobile-character-content">
-        <div className={`mobile-character-front padded`} onClick={() => setFlipped(true)}>
+        <div
+          className={`mobile-character-front padded`}
+          onClick={() => setFlipped(true)}
+        >
           <img
             src={imagePath}
             alt={characterDetails.name}
@@ -38,13 +43,19 @@ const MobileDisplayCard: FC<MobileCardProps> = ({ id }) => {
             height={150}
           />
           <p className={`mobile-character-title`}>{characterDetails.name}</p>
-          <p className="mobile-character-sub-title">{characterDescription.quote}</p>
+          <p className="mobile-character-sub-title">
+            {characterDescription.quote}
+          </p>
           <p></p>
           <Button label={"View Attributes"} onClick={() => setFlipped(false)} />
         </div>
         <div className={`mobile-character-back padded`}>
           <MobileAttributes description={characterDescription.description} />
-          <Button label={"Back to Photo"} onClick={() => setFlipped(false)} />
+          <Button
+            label={"Back to Photo"}
+            onClick={() => setFlipped(false)}
+            id={characterDetails.name}
+          />
         </div>
       </div>
     </div>

@@ -4,7 +4,6 @@ import { CharacterAttribute } from "./CharacterAttribute";
 import { FACTIONS, formatFactionName } from "../../../utils/factions";
 interface FactionInformation {
   faction: string;
-  image: string;
 }
 
 export const Attributes = () => {
@@ -13,11 +12,10 @@ export const Attributes = () => {
   const getCharacterFactionWithFactionImage = (characterName: string) => {
     let factionDetails: FactionInformation = {
       faction: "Dark Side",
-      image: "",
     };
     for (const [faction, details] of Object.entries(FACTIONS)) {
       if (details.characters.includes(characterName)) {
-        factionDetails = { faction, image: details.image };
+        factionDetails = { faction };
         break;
       }
     }

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const useModalControls = () => {
-  const [isComponentVisible, setIsComponentVisible] = useState<Boolean>(false);
+  const [isComponentVisible, setIsComponentVisible] = useState<boolean>(false);
   const ref = useRef(null);
 
   const handleClickOutside = (event: any) => {

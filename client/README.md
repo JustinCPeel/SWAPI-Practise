@@ -1,12 +1,79 @@
-# Getting Started with Create React App
+# Star Wars Character Comparison Tool (React Client)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is the **client** for the Star Wars Character Comparison Tool, built with **React** and **TypeScript**. The application allows users to compare two characters from the Star Wars universe by selecting them and viewing the comparison in an animated modal.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Installation](#installation)
+- [Project Structure](#project-structure)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Running the Application](#running-the-application)
+- [Screenshots](#screenshots)
 
-### `npm start`
+## Installation
+
+### Prerequisites
+
+- **Node.js** version `20.18.0` or higher
+- Ensure the **Server application** is running to fetch the character data.
+
+### Steps
+
+1. Clone this repository.
+
+   git clone <repository-url>
+
+2. Navigate to the client folder.
+   cd client
+
+3. Install dependencies using npm.
+   npm install
+
+## Project Structure
+
+The project is structured as follows:
+
+root/
+
+├── client/  # React application
+
+│   ├── public/  # Static assets
+
+│   ├── src/  # Application source files
+
+│   ├── package.json  # Project dependencies and scripts
+
+## Features
+
+- Character Comparison: Select two characters from the Star Wars universe and compare their attributes.
+- Animated Transitions: Includes animated buttons and fading modal effects using Framer Motion.
+- Responsive UI: Built with responsive design principles, ensuring compatibility across various screen sizes.
+- Sass Support: Styling is written in Sass for modularity and reusability.
+
+## Application Flow:
+
+- Landing screen with an animated button.
+- Selection of two Star Wars characters.
+- Display of a comparison in a modal with animations.
+
+## Technologies Used
+
+- React 18
+- React-Scripts
+- TypeScript
+- Axios for making API requests
+- Framer Motion for animations
+- React Select for dropdowns
+- Sass for styling
+- Jest and @testing-library for testing
+
+## Running the Application && Available Scripts
+
+- Make sure the Server application is up and running (necessary for character data).
+  In the project directory, you can run:
+
+### npm start
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -14,33 +81,32 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
+### npm test
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### npm run build
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the build folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The tests are written using Jest and React Testing Library to ensure the core functionalities of the application work as expected.
 
-### `npm run eject`
+## Screenshots
+### Landing Screen:
+This is the initial page that is shown on startup:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![Landing Screen](landing.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Character Select:
+Screen for chosing 2 characters to use for comparison:
+![Character Select](characterSelect.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Comparison:
+Modal representation of the compared stats between the two characters:
+![Comparison](comparison.png)

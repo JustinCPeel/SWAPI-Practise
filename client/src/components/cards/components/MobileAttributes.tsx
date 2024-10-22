@@ -4,7 +4,6 @@ import { useCharacter } from "../../../hooks/useCharacter";
 import { CharacterAttribute } from "./CharacterAttribute";
 interface FactionInformation {
   faction: string;
-  image: string;
 }
 
 interface MobileAttributes {
@@ -17,11 +16,10 @@ export const MobileAttributes: FC<MobileAttributes> = ({ description }) => {
   const getCharacterFactionWithFactionImage = (characterName: string) => {
     let factionDetails: FactionInformation = {
       faction: "Dark Side",
-      image: "",
     };
     for (const [faction, details] of Object.entries(FACTIONS)) {
       if (details.characters.includes(characterName)) {
-        factionDetails = { faction, image: details.image };
+        factionDetails = { faction };
         break;
       }
     }

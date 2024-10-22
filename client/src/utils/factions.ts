@@ -1,13 +1,12 @@
 export const FACTIONS = {
   jedi: {
-    image: "https://example.com/jedi_image.jpg", // Replace with actual image URL
     characters: [
       "Luke Skywalker",
       "Qui-Gon Jinn",
       "Mace Windu",
       "Yoda",
       "Obi-Wan Kenobi",
-      "Anakin Skywalker", // Former Jedi, became Sith as Darth Vader
+      "Anakin Skywalker", 
       "Aayla Secura",
       "Ki-Adi-Mundi",
       "Kit Fisto",
@@ -21,16 +20,14 @@ export const FACTIONS = {
     ],
   },
   sith: {
-    image: "https://example.com/sith_image.jpg", // Replace with actual image URL
     characters: [
-      "Darth Vader", // Formerly Anakin Skywalker
-      "Palpatine", // Emperor, also known as Darth Sidious
+      "Darth Vader",
+      "Palpatine", 
       "Darth Maul",
-      "Count Dooku", // Darth Tyranus
+      "Count Dooku", 
     ],
   },
   empire: {
-    image: "https://example.com/empire_image.jpg", // Replace with actual image URL
     characters: [
       "Wilhuff Tarkin",
       "Boba Fett",
@@ -46,7 +43,6 @@ export const FACTIONS = {
     ],
   },
   rebels: {
-    image: "https://example.com/rebels_image.jpg", // Replace with actual image URL
     characters: [
       "Leia Organa",
       "Han Solo",
@@ -64,10 +60,9 @@ export const FACTIONS = {
     ],
   },
   bountyHunters: {
-    image: "https://example.com/bounty_hunters_image.jpg", // Replace with actual image URL
     characters: [
       "Greedo",
-      "Jabba Desilijic Tiure", // Jabba the Hutt
+      "Jabba Desilijic Tiure",
       "Bib Fortuna",
       "Sebulba",
       "Watto",
@@ -78,21 +73,18 @@ export const FACTIONS = {
     ],
   },
   separatists: {
-    image: "https://example.com/separatists_image.jpg", // Replace with actual image URL
     characters: [
       "General Grievous",
-      "Count Dooku", // Darth Tyranus, Sith Lord
+      "Count Dooku",
       "Nute Gunray",
       "Wat Tambor",
       "Poggle the Lesser",
     ],
   },
   droids: {
-    image: "https://example.com/droids_image.jpg", // Replace with actual image URL
     characters: ["C-3PO", "R2-D2", "R5-D4", "R4-P17"],
   },
   tatooineCitizens: {
-    image: "https://example.com/tatooine_image.jpg", // Replace with actual image URL
     characters: ["Owen Lars", "Beru Whitesun Lars", "Shmi Skywalker"],
   },
 };

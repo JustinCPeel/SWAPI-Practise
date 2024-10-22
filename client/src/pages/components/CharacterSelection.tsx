@@ -36,7 +36,10 @@ export const CharacterSelection = () => {
           <>
             <AsyncSelectCharacter id="primary-character-select" zIndex={8} />
             {isSmallDevice ? (
-              <MobileDisplayCard id="primary-mobile-character" />
+              <MobileDisplayCard
+                id="primary-mobile-character"
+                key={"primary"}
+              />
             ) : (
               <CharacterDisplayCard id="primary-character-card" />
             )}
@@ -50,7 +53,10 @@ export const CharacterSelection = () => {
           <>
             <AsyncSelectCharacter id="secondary-character-select" zIndex={6} />
             {isSmallDevice ? (
-              <MobileDisplayCard id="secondary-mobile-character" />
+              <MobileDisplayCard
+                id="secondary-mobile-character"
+                key={"secondary"}
+              />
             ) : (
               <CharacterDisplayCard id="secondary-character-card" />
             )}
