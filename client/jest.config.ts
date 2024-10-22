@@ -1,6 +1,6 @@
 module.exports = {
   preset: "ts-jest", // Use ts-jest for TypeScript support
-  testEnvironment: "jsdom", // Use jsdom for testing React components
+  testEnvironment: "jsdom", 
   moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node"],
   transform: {
     "^.+\\.tsx?$": "ts-jest", // Handle TypeScript files

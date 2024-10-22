@@ -1,5 +1,4 @@
 import axios from "axios";
-import { swapiToCharacterResponse } from "../dto/converters/character.converter";
 import {
   CharacterFetch,
   ComparisonRequest,
@@ -12,6 +11,7 @@ import {
   SwapiCharResponse,
 } from "../dto/responses/charactersResponses";
 import { PlanetResponse } from "../dto/responses/planetResponses";
+import { swapiToCharacterResponse } from "../dto/converters/character.converter";
 
 /**
  * The CharacterService is a class based service which is used to fetch the data from the SWAPI.
@@ -65,7 +65,7 @@ export class CharacterService {
         firstFetch.data.results
       );
 
-      return allCharacters.map((character, index) =>
+      return allCharacters.map((character) =>
         swapiToCharacterResponse(character)
       );
     } catch (error) {
@@ -182,7 +182,9 @@ export class CharacterService {
         ),
         homeworld: {
           primary: await this.getCharacterHomeWorld(firstCharacter.homeworld),
-          secondary: await this.getCharacterHomeWorld(secondCharacter.homeworld),
+          secondary: await this.getCharacterHomeWorld(
+            secondCharacter.homeworld
+          ),
         },
         films: {
           primary: firstCharacter.films.length.toString(),
