@@ -34,11 +34,15 @@ This project is the **client** for the Star Wars Character Comparison Tool, buil
 
 The project is structured as follows:
 
-root
-├── /client
-│       ├── /public 
-│       ├── /src  
-│       ├── package.json  
+├──root/ 
+
+│    ├── client/ 
+
+│    │   ├── public/ 
+
+│    │   └── src/ 
+
+│    │   └── package.json
 
 ## Features
 
