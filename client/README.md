@@ -22,7 +22,7 @@ This project is the **client** for the Star Wars Character Comparison Tool, buil
 
 1. Clone this repository.
 
-   git clone <repository-url>
+   git clone <https://github.com/JustinCPeel/SWAPI-Practise.git>
 
 2. Navigate to the client folder.
    cd client
@@ -34,15 +34,11 @@ This project is the **client** for the Star Wars Character Comparison Tool, buil
 
 The project is structured as follows:
 
-root/
-
-├── client/  # React application
-
-│   ├── public/  # Static assets
-
-│   ├── src/  # Application source files
-
-│   ├── package.json  # Project dependencies and scripts
+root
+├── /client
+│       ├── /public 
+│       ├── /src  
+│       ├── package.json  
 
 ## Features
 
@@ -94,8 +90,6 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-The tests are written using Jest and React Testing Library to ensure the core functionalities of the application work as expected.
 
 ## Screenshots
 ### Landing Screen:
