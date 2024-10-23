@@ -60,11 +60,14 @@ const MobileDisplayCard: FC<MobileCardProps> = ({ id }) => {
           </div>
           <div className={`mobile-character-back padded`}>
             <MobileAttributes description={characterDescription.description} />
-            <Button
-              label={"Back to Photo"}
-              onClick={() => setFlipped(false)}
-              id={characterDetails.name}
-            />
+            <div>
+              <Button
+                label={"Back to Photo"}
+                onClick={() => setFlipped(false)}
+                id={characterDetails.name}
+                key={characterDetails.name}
+              />
+            </div>
           </div>
         </div>
       </motion.div>

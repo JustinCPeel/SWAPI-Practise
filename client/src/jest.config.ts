@@ -2,16 +2,14 @@ export default {
   preset: "ts-jest",
   testEnvironment: "node",
   transform: {
-    "^.+\\.tsx?$": "babel-jest", // Transform TypeScript files
-    "^.+\\.jsx?$": "babel-jest", // Transform JavaScript files
+    "^.+\\.tsx?$": "ts-jest",
+    "^.+\\.jsx?$": "babel-jest",
   },
-  transformIgnorePatterns: [
-    "/node_modules/(?!(axios)/)", // Ensure axios is transformed by Babel
-  ],
-  extensionsToTreatAsEsm: [".ts", ".tsx"], // Treat TypeScript files as ES Modules
+  transformIgnorePatterns: ["/node_modules/(?!(axios)/)"],
+  extensionsToTreatAsEsm: [".ts", ".tsx"],
   globals: {
     "ts-jest": {
-      useESM: true, // Ensure ts-jest uses ESM for TypeScript
+      useESM: true,
     },
   },
 };

@@ -6,12 +6,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   "data-testid"?: string;
 }
 
-const Button: FC<ButtonProps> = ({
-  label,
-  onClick,
-  "data-testid": testId,
-  ...rest
-}) => {
+const Button: FC<ButtonProps> = ({ label, onClick, "data-testid": testId }) => {
   return (
     <motion.button
       onClick={onClick}
@@ -19,7 +14,7 @@ const Button: FC<ButtonProps> = ({
       whileHover={{ scale: 1.2 }}
       whileTap={{ scale: 0.9 }}
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
-      data-testid={{ testId }}
+      data-testid={testId}
     >
       <span>{label}</span>
     </motion.button>

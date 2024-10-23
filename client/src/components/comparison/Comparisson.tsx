@@ -1,11 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import useModalControls from "../../hooks/useModalControls";
-import { LightSaberLoading } from "../../pages/components/LightSaberLoading";
 import { compareCharacterStats } from "../../services/api";
+import Button from "../button/Button";
 import Modal from "../modal/Modal";
 import { ComparissonAttribute } from "./components";
-import Button from "../button/Button";
 
 export const Comparisson = ({ primary, secondary }: ComparisonState) => {
   const { isComponentVisible, setIsComponentVisible, ref } = useModalControls();

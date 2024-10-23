@@ -15,7 +15,6 @@ const CharacterDisplayCard: FC<{ id: string }> = ({ id }) => {
     return getCharacterDescriptionText(selectedCharacter.name);
   }, [selectedCharacter]);
 
-    debugger
   if (selectedCharacter.url === "") return null;
 
   return (

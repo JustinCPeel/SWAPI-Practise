@@ -1,6 +1,5 @@
 .btn {
   border: none;
-  display: block;
   text-align: center;
   cursor: pointer;
   text-transform: uppercase;
@@ -23,6 +22,7 @@
 
   &::after {
     content: "";
+    pointer-events: none;
     position: absolute;
     left: 0;
     top: 0;

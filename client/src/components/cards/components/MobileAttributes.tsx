@@ -1,16 +1,16 @@
 import { FC, useMemo } from "react";
-import { FACTIONS, formatFactionName } from "../../../utils/factions";
 import { useCharacter } from "../../../hooks/useCharacter";
+import { FACTIONS, formatFactionName } from "../../../utils/factions";
 import { CharacterAttribute } from "./CharacterAttribute";
 interface FactionInformation {
   faction: string;
 }
 
-interface MobileAttributes {
+interface MobileAttributesProps {
   description: string;
 }
 
-export const MobileAttributes: FC<MobileAttributes> = ({ description }) => {
+export const MobileAttributes: FC<MobileAttributesProps> = ({ description }) => {
   const { characterDetails } = useCharacter();
 
   const getCharacterFactionWithFactionImage = (characterName: string) => {
