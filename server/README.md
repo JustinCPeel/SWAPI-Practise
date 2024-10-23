@@ -39,14 +39,18 @@ root/
 │    ├── public/
 │    └── src/
 │    └── package.json
-├── server/
-│    └── src/
-│    │    ├── controllers/ 
-│    │    ├── dto/
-│    │    ├── routes/
-│    │    ├── services/
-│    │    └── tests
+├── helper/
+│    ├── downloads/
+│    └── imageDownload.js
 │    └── package.json
+└── server/
+    ├── src/
+    │    ├── controllers/ 
+    │    ├── dto/
+    │    ├── routes/
+    │    ├── services/
+    │    └── tests
+    └── package.json
 ```
 
 ## Features

@@ -2,11 +2,7 @@
   "name": "fullstack-app",
   "version": "1.0.0",
   "scripts": {
-    "client": "npm start --prefix client",
-    "server": "npm run dev --prefix server",
-    "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "download": "node imageDownload.js",
-    "postinstall": "(cd server && npm install) && (cd client && npm install)"
+    "download": "node imageDownload.js"
   },
   "devDependencies": {
     "@types/string-similarity": "^4.0.2",
