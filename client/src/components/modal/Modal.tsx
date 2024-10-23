@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { LightSaberLoading } from "../../pages/components/LightSaberLoading";
-import { useState } from "react";
 
 const Modal = ({
   children,
@@ -14,7 +13,7 @@ const Modal = ({
       className="modal-background"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }} // Exit fade-out animation
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
       {loading ? (

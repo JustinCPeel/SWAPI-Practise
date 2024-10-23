@@ -131,11 +131,16 @@ const AsyncSelectCharacter: FC<CharacterSelectProps> = ({ id, zIndex }) => {
         }}
         value={{ value: selectedCharacter.url, label: selectedCharacter.name }}
         onChange={(selectedOption) =>
-          setSelectedCharacter({
-            url: selectedOption?.value ?? "",
-            name: selectedOption?.label ?? "",
-          })
+          setSelectedCharacter(
+            selectedOption
+              ? {
+                  url: selectedOption?.value ?? "",
+                  name: selectedOption?.label ?? "",
+                }
+              : { url: "", name: "" }
+          )
         }
+        isClearable
       />
       <motion.label
         htmlFor={id}
