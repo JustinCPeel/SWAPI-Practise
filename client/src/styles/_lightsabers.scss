@@ -19,7 +19,7 @@
 }
 
 .saber {
-  position: absolute;
+  position: fixed;
   width: 18rem;
   filter: drop-shadow(0 0 10px var(--hilt-shadow));
   transition: filter 1s ease;
@@ -37,7 +37,7 @@
 }
 
 .saber-light {
-  position: absolute;
+  position: fixed;
   height: 1rem;
   width: 50vw;
   background-color: var(--saber-color);

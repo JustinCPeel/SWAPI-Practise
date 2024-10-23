@@ -38,37 +38,46 @@ const MobileDisplayCard: FC<MobileCardProps> = ({ id }) => {
       >
         <div className="mobile-character-wrapper-image"></div>
         <div className="mobile-character-content">
-          <div
-            className={`mobile-character-front padded`}
-            onClick={() => setFlipped(true)}
-          >
-            <img
-              src={imagePath}
-              alt={characterDetails.name}
-              width={100}
-              height={150}
-            />
-            <p className={`mobile-character-title`}>{characterDetails.name}</p>
-            <p className="mobile-character-sub-title">
-              {characterDescription.quote}
-            </p>
-            <p></p>
-            <Button
-              label={"View Attributes"}
-              onClick={() => setFlipped(false)}
-            />
-          </div>
-          <div className={`mobile-character-back padded`}>
-            <MobileAttributes description={characterDescription.description} />
-            <div>
+          {!flipped && (
+            <div
+              className={`mobile-character-front padded`}
+              onClick={() => setFlipped(true)}
+            >
+              <img
+                src={imagePath}
+                alt={characterDetails.name}
+                width={100}
+                height={150}
+              />
+              <p className={`mobile-character-title`}>
+                {characterDetails.name}
+              </p>
+              <p className="mobile-character-sub-title">
+                {characterDescription.quote}
+              </p>
+              <p></p>
               <Button
-                label={"Back to Photo"}
+                label={"View Attributes"}
                 onClick={() => setFlipped(false)}
-                id={characterDetails.name}
-                key={characterDetails.name}
               />
             </div>
-          </div>
+          )}
+
+          {flipped && (
+            <div className={`mobile-character-back padded`}>
+              <MobileAttributes
+                description={characterDescription.description}
+              />
+              <div>
+                <Button
+                  label={"Back to Photo"}
+                  onClick={() => setFlipped(false)}
+                  id={characterDetails.name}
+                  key={characterDetails.name}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </motion.div>
     </AnimatePresence>
